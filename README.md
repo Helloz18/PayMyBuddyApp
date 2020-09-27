@@ -9,6 +9,10 @@ Class Diagram
 -------------
 <img width="800px" src="./img/diagramme.png"/>
 
+MPD
+-------------
+<img width="800px" src="./img/mpd.png"/>
+
 Technologies used
 -----------------
 * Spring boot
