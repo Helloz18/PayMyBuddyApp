@@ -7,7 +7,7 @@ Friends are called "connections".
 
 Class Diagram
 -------------
-<img width="800px" src="./img/diagrammeV5.png"/>
+<img width="800px" src="./img/diagrammev5.png"/>
 
 MPD
 -------------
