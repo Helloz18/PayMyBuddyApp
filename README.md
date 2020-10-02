@@ -7,11 +7,11 @@ Friends are called "connections".
 
 Class Diagram
 -------------
-<img width="800px" src="./img/diagramme.png"/>
+<img width="800px" src="./img/diagrammeV5.png"/>
 
 MPD
 -------------
-<img width="800px" src="./img/mpd.png"/>
+<img width="800px" src="./img/mpdv2.png"/>
 
 Technologies used
 -----------------
