@@ -11,7 +11,7 @@ Class Diagram
 
 MPD
 -------------
-<img width="800px" src="./img/mpdv2.png"/>
+<img width="800px" src="./img/mpdv3.png"/>
 
 Technologies used
 -----------------
