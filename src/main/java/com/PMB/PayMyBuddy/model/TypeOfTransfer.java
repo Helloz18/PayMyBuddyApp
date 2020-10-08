@@ -21,7 +21,7 @@ public class TypeOfTransfer {
 	private String name;
 	private double percentToCollect;
 	
-	@OneToMany(mappedBy="type_of_transfer")
+	@OneToMany(mappedBy="typeOfTransfer")
 	private List<MoneyTransfer> moneyTransfers;
 	
 	public TypeOfTransfer() {		
