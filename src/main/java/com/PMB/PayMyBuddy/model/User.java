@@ -47,7 +47,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String email, String password, String firstname, String lastname, Date birthdate, double appAccount) {
+	
+	public User(String email, String password, String firstname, String lastname, Date birthdate,
+			double appAccount, String role, boolean enabled) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -55,7 +57,8 @@ public class User {
 		this.lastname = lastname;
 		this.birthdate = birthdate;
 		this.appAccount = appAccount;
-		
+		this.role = role;
+		this.enabled = enabled;
 	}
 
 	public long getId() {
