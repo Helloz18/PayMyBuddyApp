@@ -1,4 +1,4 @@
-package com.PMB.PayMyBuddy;
+package com.PMB.PayMyBuddy.configurationTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

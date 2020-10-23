@@ -1,4 +1,4 @@
-package com.PMB.PayMyBuddy;
+package com.PMB.PayMyBuddy.configurationTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
