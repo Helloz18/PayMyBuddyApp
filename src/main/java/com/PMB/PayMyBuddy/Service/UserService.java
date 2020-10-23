@@ -14,19 +14,10 @@ import com.PMB.PayMyBuddy.repository.UserRepository;
 @Transactional
 public class UserService {
 
-    private UserRepository userRepo;
-
-    
 		
-	//@Autowired
-	//private UserRepository userRepo;
+	@Autowired
+	private UserRepository userRepo;
 	
-    @Autowired
-	public UserService(UserRepository userRepo) {
-		super();
-		this.userRepo = userRepo;
-	}
-
 
 	public User get(long id) {
 		return userRepo.findById(id).get();
@@ -38,5 +29,9 @@ public class UserService {
 
 	public List<User> findAll() {
 		return userRepo.findAll();
+	}
+	
+	public void save(User user) {
+		userRepo.save(user);
 	}
 }

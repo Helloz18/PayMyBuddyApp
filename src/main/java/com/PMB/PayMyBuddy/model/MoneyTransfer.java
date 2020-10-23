@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "money_transfer")
 public class MoneyTransfer {
@@ -28,25 +30,34 @@ public class MoneyTransfer {
 	@JoinColumn(name="type_of_transfer_id", nullable=false)
 	private TypeOfTransfer typeOfTransfer;
 	
+	
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="money_sender_id", nullable=false)
+	@JsonIgnore
 	private User moneySender;
+	
 	@ManyToOne
-	@JoinColumn(name="money_friend_id")
+	@JoinColumn(name="money_friend_id", nullable=false)
 	private User moneyFriend;
 	
 	public MoneyTransfer() {
 	}
 	
-	public MoneyTransfer(long id, double amount, String description,
-			OffsetDateTime date, TypeOfTransfer typeOfTransfer) {
-		super();
+	
+
+
+	public MoneyTransfer(long id, double amount, String description, OffsetDateTime date, TypeOfTransfer typeOfTransfer,
+			User moneySender, User moneyFriend) {
 		this.id = id;
 		this.amount = amount;
 		this.description = description;
 		this.date = date;
 		this.typeOfTransfer = typeOfTransfer;
+		this.moneySender = moneySender;
+		this.moneyFriend = moneyFriend;
 	}
+
+
 
 
 	public long getId() {
@@ -90,13 +101,6 @@ public class MoneyTransfer {
 		this.typeOfTransfer = typeOfTransfer;
 	}
 
-	@Override
-	public String toString() {
-		return "MoneyTransfer [id=" + id + ", amount="
-				+ amount + ", description=" + description + ", date=" + date + ", typeOfTransfer=" + typeOfTransfer
-				+ "]";
-	}
-
 	public User getMoneySender() {
 		return moneySender;
 	}
@@ -105,12 +109,22 @@ public class MoneyTransfer {
 		this.moneySender = moneySender;
 	}
 
+
 	public User getMoneyFriend() {
 		return moneyFriend;
 	}
 
 	public void setMoneyFriend(User moneyFriend) {
 		this.moneyFriend = moneyFriend;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "MoneyTransfer [id=" + id + ", amount=" + amount + ", description=" + description + ", date=" + date
+				+ ", typeOfTransfer=" + typeOfTransfer + ", moneySender=" + moneySender + ", moneyFriend=" + moneyFriend + "]";
 	}
 	
 	

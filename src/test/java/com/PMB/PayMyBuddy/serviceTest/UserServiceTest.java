@@ -71,8 +71,8 @@ public class UserServiceTest {
 		//String email, String password, String firstname, String lastname, Date birthdate,
 		//double appAccount, String role, boolean enabled
 	    
-		User user = new User("test@test.com", "1234", "test", "test", null, 0, "ROLE_USER",true);      
-        User user2 = new User("x@x.com", "1234", "x", "x", null, 0, "ROLE_ADMIN", true);
+		User user = new User(0, "test@test.com", "1234", "test", "test", null, 0, "ROLE_USER",true, null, null, null, null, null);      
+        User user2 = new User(0, "x@x.com", "1234", "x", "x", null, 0, "ROLE_ADMIN", true, null, null, null, null, null);
         List<User> users = java.util.Arrays.asList(user, user2);
 		System.out.println(users);
 		when(userRepository.findAll()).thenReturn(users);

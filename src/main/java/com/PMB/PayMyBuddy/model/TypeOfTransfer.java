@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "type_of_transfer")
 public class TypeOfTransfer {
@@ -22,6 +24,7 @@ public class TypeOfTransfer {
 	private double percentToCollect;
 	
 	@OneToMany(mappedBy="typeOfTransfer")
+	@JsonIgnore
 	private List<MoneyTransfer> moneyTransfers;
 	
 	public TypeOfTransfer() {		

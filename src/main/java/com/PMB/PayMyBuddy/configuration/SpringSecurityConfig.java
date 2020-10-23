@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private DataSource dataSource;
+	private DataSource dataSource; 
 
 	/**
 	 * AuthenticationManagerBuilder is a class that handle the authentication ruleset
@@ -42,11 +42,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/").hasAnyRole("USER", "ADMIN")
-			.antMatchers("/*").hasRole("ADMIN")
+			.antMatchers("/admin/").hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 			.and()
 			.formLogin();
 	}
+	
+//	 @Override
+//	    protected void configure(HttpSecurity http) throws Exception {
+//	        http.authorizeRequests()
+//	          .antMatchers("/private/**")
+//	          .authenticated()
+//	          .antMatchers("/public/**")
+//	          .permitAll()
+//	          .and()
+//	          .httpBasic();
+//	    }
 
 }

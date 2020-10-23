@@ -1,6 +1,5 @@
 package com.PMB.PayMyBuddy.repositoryTest;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,25 +30,27 @@ public class UserRepositoryTest {
     @BeforeEach
     public void setUp(){
 
-    	userTest = new User("email", "password","firstname", "lastname",null,0, "ROLE_USER",true);
+    	userTest = new User(0, "email", "password","firstname", "lastname",null,0, "ROLE_USER",true, null, null, null, null, null);
     	entityManager.persist(userTest);
     	entityManager.flush();
     }
     
-    @Test //String email, String password, String firstname, String lastname, Date birthdate,
-	//double appAccount, String role, boolean enabled
+    @Test
     public void testFindByEmail() {
-    	        
+    	 
+    	//Given --> setUp()
+    	//When
         User userFound = userRepository.findByEmail(userTest.getEmail());
-         
+        //Then 
         assertThat(userFound.getEmail()).isEqualTo(userTest.getEmail());
     }
   
     @Test
     public void testFindAll() {
-    	
+    	//Given --> setUp()
+    	//When
     	List<User> users = userRepository.findAll();
-    	
+    	//Then
     	assertEquals(users.size(), 1);
     }
     

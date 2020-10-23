@@ -9,8 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name ="Address")
+@Table(name ="address")
 public class Address {
 	
 	@Id
@@ -23,7 +25,8 @@ public class Address {
 	private String city;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	
@@ -31,14 +34,14 @@ public class Address {
 	}
 	
 	
-	
 	public Address(String number, String street, int zip, String city) {
-		super();
 		this.number = number;
 		this.street = street;
 		this.zip = zip;
 		this.city = city;
 	}
+
+
 
 
 
@@ -86,6 +89,57 @@ public class Address {
 	@Override
 	public String toString() {
 		return "Address [number=" + number + ", street=" + street + ", zip=" + zip + ", city=" + city + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((number == null) ? 0 : number.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + zip;
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (id != other.id)
+			return false;
+		if (number == null) {
+			if (other.number != null)
+				return false;
+		} else if (!number.equals(other.number))
+			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		if (zip != other.zip)
+			return false;
+		return true;
 	}
 	
 	
