@@ -19,22 +19,21 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String bankName;
-	private int accountNumber;
+	private String accountNumber;
 	
 	@OneToOne
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;	
 	
+	private boolean accountHasMoney;
+	
+	
 	public BankAccount() {
 	}
 	
-	
-	
-	public BankAccount(String bankName, int accountNumber, User user) {
-		super();
+	public BankAccount(String bankName, String accountNumber) {
 		this.bankName = bankName;
 		this.accountNumber = accountNumber;
-		this.user = user;
 	}
 
 
@@ -51,10 +50,10 @@ public class BankAccount {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-	public int getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
@@ -70,7 +69,15 @@ public class BankAccount {
 
 	@Override
 	public String toString() {
-		return "BankAccount [bankName=" + bankName + ", accountNumber=" + accountNumber + ", user=" + user + "]";
+		return "BankAccount [bankName=" + bankName + ", accountNumber=" + accountNumber +  "]";
+	}
+
+	public boolean isAccountHasMoney() {
+		return accountHasMoney;
+	}
+
+	public void setAccountHasMoney(boolean accountHasMoney) {
+		this.accountHasMoney = accountHasMoney;
 	}
 	
 	
