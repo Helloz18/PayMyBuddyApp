@@ -83,4 +83,44 @@ public class UserServiceTest {
 		assertTrue(result.get(0).getFirstname().equals("test"));
 		assertTrue(result.get(1).getFirstname().equals("x"));
 	}
+	
+	@Test
+	public void whenAddNewFriendThenNewFriendIsInUserMoneyFriends() {
+		
+	}
+	
+	@Test
+	public void whenDeleteFriendThenDeletedFriendIsNotInUserMoneyFriends() {
+		
+	}
+	
+	@Test
+	public void whenAddWrongEmailForFriendThenNoNewMoneyFriendIsAdded() {
+		
+	}
+	
+	@Test
+	public void whenEmptyThenNoMoneyFriendIsAdded() {
+		
+	}
+	
+	@Test
+	public void whenAddNewAddressThenNewAddressIsInUserAddresses() {
+		
+	}
+	
+	@Test
+	public void whenAddressFieldMissingThenErrorIsSend() {
+		
+	}
+	
+	@Test
+	public void whenAddNewPhoneNumberThenNewPhoneNumberIsInUserPhoneNumbers() {
+		
+	}
+	
+	@Test
+	public void whenPhoneNumberFieldMissingThenErrorIsSend() {
+		
+	}
 }

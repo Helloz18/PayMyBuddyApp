@@ -50,11 +50,6 @@ public class User {
 	}
 
 	
-	
-
-
-
-
 	public User(long id, String email, String password, String firstname, String lastname, Date birthdate,
 			double appAccount, String role, boolean enabled, List<Address> addresses, List<PhoneNumber> phoneNumbers,
 			BankAccount bankAccount, List<MoneyTransfer> moneyTransfers, List<User> moneyFriends) {
@@ -160,13 +155,6 @@ public class User {
 
 	public void setBankAccount(BankAccount bankAccounts) {
 		this.bankAccount = bankAccounts;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", birthdate=" + birthdate + ", appAccount=" + appAccount + "]";
 	}
 
 	public boolean isEnabled() {
@@ -315,7 +303,17 @@ public class User {
 		} else if (!role.equals(other.role))
 			return false;
 		return true;
-	}	
-	
+	}
+
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", birthdate=" + birthdate + ", appAccount=" + appAccount + ", role=" + role + ", enabled=" + enabled
+				+ ", addresses=" + addresses + ", phoneNumbers=" + phoneNumbers + ", bankAccount=" + bankAccount
+				+ ", moneyTransfers=" + moneyTransfers + "]";
+	}
+
+
 	
 }

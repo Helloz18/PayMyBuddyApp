@@ -2,8 +2,10 @@ package com.PMB.PayMyBuddy.model;
 
 import java.time.OffsetDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,18 +28,20 @@ public class MoneyTransfer {
 	private String description;
 	private OffsetDateTime date;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="type_of_transfer_id", nullable=false)
+	@JsonIgnore
 	private TypeOfTransfer typeOfTransfer;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="money_sender_id", nullable=false)
 	@JsonIgnore
 	private User moneySender;
 	
 	@ManyToOne
 	@JoinColumn(name="money_friend_id", nullable=false)
+	@JsonIgnore
 	private User moneyFriend;
 	
 	public MoneyTransfer() {

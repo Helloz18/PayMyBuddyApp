@@ -15,9 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
 import com.PMB.PayMyBuddy.Service.BankAccountService;
+import com.PMB.PayMyBuddy.Service.UserService;
+import com.PMB.PayMyBuddy.exception.QuotaReachedException;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.User;
-import com.PMB.PayMyBuddy.repository.UserRepository;
 import com.PMB.PayMyBuddy.repository.bankAccountRepository;
 
 @RunWith(SpringRunner.class)
@@ -31,7 +32,7 @@ public class BankAccountServiceTest {
 	bankAccountRepository bankRepository;
 	
 	@MockBean
-	UserRepository userRepository;
+	UserService userService;
 	
 	
 	@BeforeEach
@@ -50,37 +51,37 @@ public class BankAccountServiceTest {
         user.setRole("ROLE_USER");
         user.setAppAccount(0);
         user.setBankAccount(bankAccount);
-        userRepository.save(user);
+        userService.save(user);
         
 			
-        Mockito.when(userRepository.findByEmail(user.getEmail()))
+        Mockito.when(userService.getUserByEmail(user.getEmail()))
         	.thenReturn(user);
 	}
 	
 	
 //Tests Bankaccount to AppAccount	
 	@Test
-	public void whenUserWantsMoneyFromBankaccountThenMoneyTransferedOnAppAccount() {
+	public void whenUserWantsMoneyFromBankaccountThenMoneyIsReturned() {
 		//Given
-		User user = userRepository.findByEmail("test@test.com");
+		User user = userService.getUserByEmail("test@test.com");
 		BankAccount bankAccount = user.getBankAccount();
-		bankAccount.setAccountHasMoney(true);
+		bankAccount.setResponseFromBankApi(true);
 		Double amountAsked = 100.00;
 				
-		//When
-		bankAccountService.fundAppAccount(user,amountAsked);
+		//When	
+		Double bankResponse = bankAccountService.fundAppAccount(user,amountAsked);
 		
 		//Then
-		assertEquals(user.getAppAccount(), 100.00);
+		assertEquals(bankResponse, 100.00);
 		
 	}
 	
 	@Test
-	public void whenNoMoneyOnBankaccountThenNoMoneyTransferedOnAppAccount() {
+	public void whenNoMoneyOnBankaccountThenNoMoneyIsReturned() {
 		//Given
-		User user = userRepository.findByEmail("test@test.com");
+		User user = userService.getUserByEmail("test@test.com");
 		BankAccount bankAccount = user.getBankAccount();
-		bankAccount.setAccountHasMoney(false);
+		bankAccount.setResponseFromBankApi(false);
 		Double amountAsked = 100.00;
 						
 		//When
@@ -91,27 +92,13 @@ public class BankAccountServiceTest {
 				
 	}
 	
-	@Test
-	public void whenAppAccountIsFullThenNoMoneyTransferedOnAppAccount() {
-		//Given
-		User user = userRepository.findByEmail("test@test.com");
-		BankAccount bankAccount = user.getBankAccount();
-		bankAccount.setAccountHasMoney(true);
-		Double amountAsked = 10000.00;
-								
-		//When
-		bankAccountService.fundAppAccount(user,amountAsked);
-						
-		//Then
-		assertEquals(user.getAppAccount(), 0);
-	}
-	
+		
 	
 //Tests AppAccount to BankAccount
 	@Test
 	public void whenUserTransferedMoneyFromAppAccountToBankaccountThenMoneyIsTransfered() {
 		//Given
-		User user = userRepository.findByEmail("test@test.com");
+		User user = userService.getUserByEmail("test@test.com");
 		user.setAppAccount(200.00);
 		Double amountGiven = 100.00;		
 		
@@ -126,7 +113,7 @@ public class BankAccountServiceTest {
 	@Test
 	public void whenUserTryToTransferMoreMoneyThanOnHisAppAccountThenNoMoneyIsTransfered() {
 		//Given
-		User user = userRepository.findByEmail("test@test.com");
+		User user = userService.getUserByEmail("test@test.com");
 		user.setAppAccount(100.00);
 		Double amountGiven = 101.00;
 		

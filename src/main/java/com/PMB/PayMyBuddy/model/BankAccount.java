@@ -1,7 +1,9 @@
 package com.PMB.PayMyBuddy.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "bank_account")
@@ -23,9 +27,13 @@ public class BankAccount {
 	
 	@OneToOne
 	@JoinColumn(name="user_id", nullable=false)
+	@JsonIgnore
 	private User user;	
 	
-	private boolean accountHasMoney;
+	//boolean to simulate the response from the bank
+	// --> if the user has money on his bank account or not
+	@JsonIgnore
+	private boolean responseFromBankApi;
 	
 	
 	public BankAccount() {
@@ -72,13 +80,14 @@ public class BankAccount {
 		return "BankAccount [bankName=" + bankName + ", accountNumber=" + accountNumber +  "]";
 	}
 
-	public boolean isAccountHasMoney() {
-		return accountHasMoney;
+	public boolean isResponseFromBankApi() {
+		return responseFromBankApi;
 	}
 
-	public void setAccountHasMoney(boolean accountHasMoney) {
-		this.accountHasMoney = accountHasMoney;
+	public void setResponseFromBankApi(boolean responseFromBankApi) {
+		this.responseFromBankApi = responseFromBankApi;
 	}
-	
+
+
 	
 }

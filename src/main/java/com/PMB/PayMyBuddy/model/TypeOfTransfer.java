@@ -18,7 +18,7 @@ public class TypeOfTransfer {
 
 	@Id
 	@Column(name ="type_of_transfer_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private double percentToCollect;
@@ -33,7 +33,6 @@ public class TypeOfTransfer {
 	
 		
 	public TypeOfTransfer(String name, double percentToCollect) {
-		super();
 		this.name = name;
 		this.percentToCollect = percentToCollect;
 	}
