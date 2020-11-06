@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -34,12 +35,12 @@ public class MoneyTransfer {
 	private TypeOfTransfer typeOfTransfer;
 	
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="money_sender_id", nullable=false)
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable=false)
 	@JsonIgnore
 	private User moneySender;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="money_friend_id", nullable=false)
 	@JsonIgnore
 	private User moneyFriend;

@@ -58,8 +58,8 @@ public class UserControllerTest {
 	@Test
 	public void givenUsers_whenGetUsers_thenReturnJsonArray() throws Exception {
 
-		User user = new User(0, "test@test.com", "123", "test", "test", null, 0, "ROLE_USER", true, null, null, null, null, null);
-		User user2 = new User(0, "x@x.com", "123", "x", "x", null, 0, "ROLE_ADMIN", true, null, null, null, null, null);
+		User user = new User("test@test.com", "123", "test", "test", null, 0, "ROLE_USER", true, null, null, null, null, null);
+		User user2 = new User("x@x.com", "123", "x", "x", null, 0, "ROLE_ADMIN", true, null, null, null, null, null);
 
 		List<User> users = Arrays.asList(user, user2);
 

@@ -2,6 +2,7 @@ package com.PMB.PayMyBuddy.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class TypeOfTransfer {
 	private String name;
 	private double percentToCollect;
 	
-	@OneToMany(mappedBy="typeOfTransfer")
+	@OneToMany(mappedBy="typeOfTransfer", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<MoneyTransfer> moneyTransfers;
 	

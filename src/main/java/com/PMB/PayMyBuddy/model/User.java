@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -24,37 +25,39 @@ public class User {
 	private String role;
 	private boolean enabled;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> addresses;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
 	private List<PhoneNumber> phoneNumbers;
 		
 	
-	@OneToOne(mappedBy="user")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id", nullable=false)
 	private BankAccount bankAccount;
+	
+
+	@ManyToMany
+    @JoinTable(name="user_money_friends",
+        joinColumns={@JoinColumn(name="user", referencedColumnName="user_id")},
+        inverseJoinColumns={@JoinColumn(name="money_friend", referencedColumnName="user_id")}
+    )
+	 private List<User> moneyFriends;
+	
+	
 	
 	@OneToMany(mappedBy="moneySender")
 	private List<MoneyTransfer> moneyTransfers;
 	
-	
-	 @ManyToMany
-     @JoinTable(name="user_money_friends",
-         joinColumns={@JoinColumn(name="user", referencedColumnName="user_id")},
-         inverseJoinColumns={@JoinColumn(name="money_friend", referencedColumnName="user_id")}
-     )
-	 private List<User> moneyFriends;
 	
 	
 	public User() {
 	}
 
 	
-	public User(long id, String email, String password, String firstname, String lastname, Date birthdate,
+	public User(String email, String password, String firstname, String lastname, Date birthdate,
 			double appAccount, String role, boolean enabled, List<Address> addresses, List<PhoneNumber> phoneNumbers,
 			BankAccount bankAccount, List<MoneyTransfer> moneyTransfers, List<User> moneyFriends) {
-		super();
-		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.firstname = firstname;
@@ -308,7 +311,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname
+		return "User [id="+id+", email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname
 				+ ", birthdate=" + birthdate + ", appAccount=" + appAccount + ", role=" + role + ", enabled=" + enabled
 				+ ", addresses=" + addresses + ", phoneNumbers=" + phoneNumbers + ", bankAccount=" + bankAccount
 				+ ", moneyTransfers=" + moneyTransfers + "]";

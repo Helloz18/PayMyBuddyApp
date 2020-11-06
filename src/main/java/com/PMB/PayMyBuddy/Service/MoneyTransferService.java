@@ -1,7 +1,9 @@
 package com.PMB.PayMyBuddy.Service;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -35,6 +37,12 @@ public class MoneyTransferService {
 	@Autowired
 	BankAccountService bankService;
 	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	TypeOfTransferService typeOfTransferService;
+	
 	/**
 	 * This method will get money from bank, then set info for the transfer,
 	 * then save the transfer in DB (the user is not saved, the call of this method
@@ -61,13 +69,12 @@ public class MoneyTransferService {
 		TypeOfTransfer type = typeService.getById(3);
 		fromBankToUser.setTypeOfTransfer(type);
 		Double amountResult = bankService.fundAppAccount(user, amountAsked);
-		System.out.println("amount asked "+ amountAsked + "amountAsked from moneytransfer "+ amountResult);
 		if(amountResult == 0.00) {
 			LOGGER.info("no money will be added on appAccount");
-		}else {			
+		}else {		
 			Double amount = typeService.amountFromTypeOfTransfer(amountResult, type.getId());
 			moneyCollected = typeService.moneyCollected(amountResult, type.getId());
-			Double amountTotal = user.getAppAccount() + amount;		
+			Double amountTotal = user.getAppAccount() + amount;	
 			
 			try {
 				if(amountTotal <= amountMax) {
@@ -90,5 +97,6 @@ public class MoneyTransferService {
 		map.put(fromBankToUser, moneyCollected);
 		return map;
 	}
+	
 	
 }

@@ -30,7 +30,7 @@ public class UserRepositoryTest {
     @BeforeEach
     public void setUp(){
 
-    	userTest = new User(0, "email", "password","firstname", "lastname",null,0, "ROLE_USER",true, null, null, null, null, null);
+    	userTest = new User("email", "password","firstname", "lastname",null,0, "ROLE_USER",true, null, null, null, null, null);
     	entityManager.persist(userTest);
     	entityManager.flush();
     }
