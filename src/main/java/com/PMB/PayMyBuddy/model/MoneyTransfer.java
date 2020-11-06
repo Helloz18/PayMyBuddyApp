@@ -41,7 +41,7 @@ public class MoneyTransfer {
 	private User moneySender;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="money_friend_id", nullable=false)
+	@JoinColumn(name="money_friend_id")
 	@JsonIgnore
 	private User moneyFriend;
 	

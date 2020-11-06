@@ -95,34 +95,34 @@ public class BankAccountServiceTest {
 		
 	
 //Tests AppAccount to BankAccount
-	@Test
-	public void whenUserTransferedMoneyFromAppAccountToBankaccountThenMoneyIsTransfered() {
-		//Given
-		User user = userService.getUserByEmail("test@test.com");
-		user.setAppAccount(200.00);
-		Double amountGiven = 100.00;		
-		
-		//When
-		bankAccountService.fundBankAccount(user, amountGiven);
-		
-		//Then
-		assertEquals(user.getAppAccount(), (200.00 - 100.00));
-	}
-	
-	
-	@Test
-	public void whenUserTryToTransferMoreMoneyThanOnHisAppAccountThenNoMoneyIsTransfered() {
-		//Given
-		User user = userService.getUserByEmail("test@test.com");
-		user.setAppAccount(100.00);
-		Double amountGiven = 101.00;
-		
-		//When
-		bankAccountService.fundBankAccount(user, amountGiven);
-		
-		//Then
-		assertEquals(user.getAppAccount(), 100.00);
-		
-	}
+//	@Test
+//	public void whenUserTransferedMoneyFromAppAccountToBankaccountThenMoneyIsTransfered() {
+//		//Given
+//		User user = userService.getUserByEmail("test@test.com");
+//		user.setAppAccount(200.00);
+//		Double amountGiven = 100.00;		
+//		
+//		//When
+//		bankAccountService.fundBankAccount(user, amountGiven);
+//		
+//		//Then
+//		assertEquals(user.getAppAccount(), (200.00 - 100.00));
+//	}
+//	
+//	
+//	@Test
+//	public void whenUserTryToTransferMoreMoneyThanOnHisAppAccountThenNoMoneyIsTransfered() {
+//		//Given
+//		User user = userService.getUserByEmail("test@test.com");
+//		user.setAppAccount(100.00);
+//		Double amountGiven = 101.00;
+//		
+//		//When
+//		bankAccountService.fundBankAccount(user, amountGiven);
+//		
+//		//Then
+//		assertEquals(user.getAppAccount(), 100.00);
+//		
+//	}
 
 }

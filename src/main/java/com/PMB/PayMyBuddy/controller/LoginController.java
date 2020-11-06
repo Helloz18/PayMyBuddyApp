@@ -12,13 +12,10 @@ import com.PMB.PayMyBuddy.PayMyBuddyApplication;
 @RestController
 public class LoginController {
 	
+	final Logger LOGGER = LoggerFactory.getLogger(PayMyBuddyApplication.class);	
+	
 	@RequestMapping("/")
 	public String getUser() {
-		final Logger LOGGER = LoggerFactory.getLogger(PayMyBuddyApplication.class);	
-		LOGGER.info("accès à la user's page");
-		LOGGER.warn("test warn");
-		LOGGER.error("test error");
-		
 		return "user page";
 	}
 

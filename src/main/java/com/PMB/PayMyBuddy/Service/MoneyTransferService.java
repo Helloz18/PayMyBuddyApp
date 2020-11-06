@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.PMB.PayMyBuddy.exception.NotEnoughMoneyException;
 import com.PMB.PayMyBuddy.exception.QuotaReachedException;
 import com.PMB.PayMyBuddy.model.MoneyTransfer;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
@@ -62,12 +63,11 @@ public class MoneyTransferService {
 		Double moneyCollected = 0.00;
 		
 		fromBankToUser.setMoneySender(user);
-		//For this type of transfer the receiver is the sender
-		fromBankToUser.setMoneyFriend(user);
 		fromBankToUser.setDescription(description);
 		fromBankToUser.setDate(OffsetDateTime.now());
 		TypeOfTransfer type = typeService.getById(3);
 		fromBankToUser.setTypeOfTransfer(type);
+
 		Double amountResult = bankService.fundAppAccount(user, amountAsked);
 		if(amountResult == 0.00) {
 			LOGGER.info("no money will be added on appAccount");
@@ -78,7 +78,15 @@ public class MoneyTransferService {
 			
 			try {
 				if(amountTotal <= amountMax) {
-					fromBankToUser.setAmount(amountTotal);
+					fromBankToUser.setAmount(amountAsked);
+					user.setAppAccount(amountTotal);
+					List<MoneyTransfer> list = user.getMoneyTransfers();
+					if(list == null) {
+						list = new ArrayList<>();
+					}
+					list.add(fromBankToUser);
+					user.setMoneyTransfers(list);
+					
 				}else {
 					LOGGER.error("quota reached, the amountMax="+amountMax+" will be reached.");
 					throw new QuotaReachedException("quota reached exception.");				
@@ -90,6 +98,7 @@ public class MoneyTransferService {
 			//Saving in database the transfer
 			try {
 				moneyTransferRepository.save(fromBankToUser);
+				userService.save(user);
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
@@ -98,5 +107,52 @@ public class MoneyTransferService {
 		return map;
 	}
 	
+	public Map<MoneyTransfer, Double> processTransferToBank(
+			User user, Double amountTransfered, String description) {
+		Map<MoneyTransfer, Double> map = new HashMap<MoneyTransfer, Double>();
+		MoneyTransfer fromUserToBank = new MoneyTransfer();
+		Double moneyCollected = 0.00;
+
+		fromUserToBank.setMoneySender(user);
+		fromUserToBank.setDescription(description);
+		fromUserToBank.setDate(OffsetDateTime.now());
+		TypeOfTransfer type = typeService.getById(2);
+		fromUserToBank.setTypeOfTransfer(type);
+
+		
+		try {
+			Double amountUserOnApp = user.getAppAccount();
+			if(amountUserOnApp >= amountTransfered) {
+				Double amountToSend = typeService.amountFromTypeOfTransfer(amountTransfered, type.getId());
+				moneyCollected = typeService.moneyCollected(amountTransfered, type.getId());
+				bankService.fundBankAccount(user, amountToSend);
+				Double amountResult = amountUserOnApp - amountTransfered;
+				user.setAppAccount(amountResult);
+				LOGGER.info("user appAccount is now = " + amountResult+".");
+				fromUserToBank.setAmount(amountTransfered);
+			}else {
+				LOGGER.error("Trying to transfer more money than is present on app account.");
+				throw new NotEnoughMoneyException("not enough money on app account.");
+			}
+		} catch (NotEnoughMoneyException e) {
+			e.printStackTrace();
+		}
+				
+		//Saving in database the transfer
+		try {
+			moneyTransferRepository.save(fromUserToBank);
+			userService.save(user);
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		map.put(fromUserToBank, moneyCollected);
+		return map;
+	}
 	
+	public Map<MoneyTransfer, Double> processTransferToFriend(
+			User user,User moneyFriend, Double amountAsked, String description) {
+	return null;
+	}
 }

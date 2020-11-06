@@ -117,7 +117,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	public void whenAddNewFriendNotAbledThenNewFriendIsInUserMoneyFriends() {
+	public void whenAddNewFriendIsDisabledThenNewFriendIsNotAdded() {
 		//GIVEN
 		User friend = new User("friend@test.com","1234","ami", "son nom",null, 0, "ROLE_USER", false, null, null, null, null, null);
 		Mockito.when(userRepository.findByEmail(friend.getEmail()))
@@ -125,15 +125,11 @@ public class UserServiceTest {
 	
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
-
-		Throwable exception = assertThrows(
-				UserNotFoundException.class, () -> {
-					//WHEN
-					userService.addMoneyFriend(user, friend.getEmail());				
-				}
-		);
-		assertEquals("wrong email.", exception.getMessage());
 		
+		//WHEN
+		userService.addMoneyFriend(user, friend.getEmail());
+		//THEN
+		assertEquals(null, user.getMoneyFriends());
 	}
 	
 	

@@ -41,22 +41,8 @@ public class BankAccountService {
 		return amountAsked;
 	}
 	
-	public void fundBankAccount(User user, Double amountGiven) {
-		try {
-			Double amountUserOnApp = user.getAppAccount();
-			if(amountUserOnApp >= amountGiven) {
-				LOGGER.info("user bank account is granted with amountGiven = "+amountGiven+".");
-				Double amountResult = amountUserOnApp - amountGiven;
-				user.setAppAccount(amountResult);
-				userService.save(user);
-				LOGGER.info("user appAccount is now = " + amountResult+".");
-			}else {
-				LOGGER.error("Trying to transfer more money than is present on app account.");
-				throw new NotEnoughMoneyException("not enough money on app account");
-			}
-		} catch (NotEnoughMoneyException e) {
-			e.printStackTrace();
-		}
+	public void fundBankAccount(User user, Double amountToSend) {
+		LOGGER.info("user bank account is granted with amountGiven = "+amountToSend+".");		
 	}
 	
 	public void save(BankAccount bankAccount) {

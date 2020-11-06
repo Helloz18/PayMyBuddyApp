@@ -85,7 +85,8 @@ class MoneyTransferServiceTest {
 	}
 	
 	@Test
-	public void whenUserGetsMoneyFromHisBankAndAmountInfFromAmountTotalThenAmountIsSendOnAppAccount() {
+	public void 
+	whenUserGetsMoneyFromHisBankAndAmountMaxNotReachedThenAmountIsSendOnAppAccount() {
 		//GIVEN
 		User user = userService.getUserByEmail("test@test.com");
 		Double amountAsked = 100.00;
@@ -106,13 +107,66 @@ class MoneyTransferServiceTest {
 			key = entry.getKey();
 		}
 		//THEN
-		assertEquals(90.00, key.getAmount());
+		assertEquals(100.00, key.getAmount());
+		assertEquals(90.00, key.getMoneySender().getAppAccount());
+		assertEquals(null, key.getMoneyFriend());
 		
 	}
 	
 	@Test
-	void whenUserReachedAmountMaxThenExceptionIsThrown() {
+	void whenUserReachedAmountMaxThenNoTransferIsDone() {
+		//GIVEN
+		User user = userService.getUserByEmail("test@test.com");
+		Double amountAsked = 10000.00;
+		Mockito.when(bankService.fundAppAccount(user, amountAsked))
+     		.thenReturn(amountAsked);
+		String description = "je prends "+amountAsked+" sur mon compte en banque.";
+		TypeOfTransfer type = new TypeOfTransfer("text", 0.00);
+		type.setId(3);
+	    Mockito.when(typeService.getById(3)).thenReturn(type);
+	    Mockito.when(typeService.amountFromTypeOfTransfer(10000.00, type.getId()))
+	        .thenReturn(10000.00);
+	    
+		MoneyTransfer key = new MoneyTransfer();
+			
+	    //WHEN    
+		Map<MoneyTransfer, Double> map = moneyTransferService.
+				processTransferFromBank(user, amountAsked, description);
+		for(Map.Entry<MoneyTransfer, Double> entry : map.entrySet()) {
+			key = entry.getKey();
+		}
+		//THEN
+		assertEquals(0, key.getAmount());
 		
+	}
+	
+	@Test
+	void whenUserFundHisBankAccountThenAppAccountIsCut() {
+		//GIVEN
+		User user = userService.getUserByEmail("test@test.com");
+		user.setAppAccount(200.00);
+		Double amountTransfered = 100.00;
+		String description = "je prends "+amountTransfered+" sur mon app account.";
+			
+		TypeOfTransfer type = new TypeOfTransfer("text", 10.00);
+		type.setId(2);
+	    Mockito.when(typeService.getById(2)).thenReturn(type);
+	    Mockito.when(typeService.amountFromTypeOfTransfer(100.00, type.getId()))
+	        .thenReturn(90.00);
+	    
+		MoneyTransfer key = new MoneyTransfer();
+		
+		//WHEN    
+		Map<MoneyTransfer, Double> map = moneyTransferService.
+				processTransferToBank(user, amountTransfered, description);
+		for(Map.Entry<MoneyTransfer, Double> entry : map.entrySet()) {
+			key = entry.getKey();
+		}
+		//THEN
+		assertEquals(100.00, key.getAmount());
+		assertEquals(100.00, key.getMoneySender().getAppAccount());
+				
+     
 	}
 
 }

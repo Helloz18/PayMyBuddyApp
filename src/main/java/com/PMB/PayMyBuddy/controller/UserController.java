@@ -33,15 +33,4 @@ public class UserController {
 		return userService.get(user_id).getMoneyTransfers();
 	}
 	
-	@RequestMapping("/user/save/{user_id}/{amount}")
-	public String updateUser(@PathVariable Long user_id,@PathVariable Double amount) {
-		User user = userService.get(user_id);
-		Double amountdepart = user.getAppAccount();
-		user.setAppAccount(amountdepart+amount);
-		userService.save(user);
-		String email = user.getEmail();
-		Double amountUser = user.getAppAccount();
-		return "depart "+amountdepart + " email " +email+ " arrivee "+amountUser;
-	}
-
 }
