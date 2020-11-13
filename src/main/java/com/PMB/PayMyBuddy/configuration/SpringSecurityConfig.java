@@ -29,8 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 			.dataSource(dataSource)
 			.passwordEncoder(new BCryptPasswordEncoder())
-			.usersByUsernameQuery("select u.email as username, u.password, u.enabled from \"PayMyBuddy\".user u where u.email=?")
-			.authoritiesByUsernameQuery("select u.email as username, u.role as role from \"PayMyBuddy\".user u where u.email=?");
+			.usersByUsernameQuery("select u.email as username, u.password, u.enabled from \"pmb\".user u where u.email=?")
+			.authoritiesByUsernameQuery("select u.email as username, u.role as role from \"pmb\".user u where u.email=?");
 	}
 
 	/**
@@ -40,6 +40,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().disable();
 		http.authorizeRequests()
 			.antMatchers("/").hasAnyRole("USER", "ADMIN")
 			.antMatchers("/admin/").hasRole("ADMIN")
@@ -61,5 +62,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //	          .and()
 //	          .httpBasic();
 //	    }
+	
 
 }

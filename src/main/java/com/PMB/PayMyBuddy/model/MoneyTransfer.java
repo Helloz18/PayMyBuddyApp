@@ -36,7 +36,7 @@ public class MoneyTransfer {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name="money_sender_id", nullable=false)
 	@JsonIgnore
 	private User moneySender;
 	
@@ -51,9 +51,8 @@ public class MoneyTransfer {
 	
 
 
-	public MoneyTransfer(long id, double amount, String description, OffsetDateTime date, TypeOfTransfer typeOfTransfer,
+	public MoneyTransfer(double amount, String description, OffsetDateTime date, TypeOfTransfer typeOfTransfer,
 			User moneySender, User moneyFriend) {
-		this.id = id;
 		this.amount = amount;
 		this.description = description;
 		this.date = date;
@@ -129,7 +128,7 @@ public class MoneyTransfer {
 	@Override
 	public String toString() {
 		return "MoneyTransfer [id=" + id + ", amount=" + amount + ", description=" + description + ", date=" + date
-				+ ", typeOfTransfer=" + typeOfTransfer + ", moneySender=" + moneySender + ", moneyFriend=" + moneyFriend + "]";
+				+ ", typeOfTransfer=" + typeOfTransfer.getId() + ", moneySender=" + moneySender.getEmail() + ", moneyFriend=" + moneyFriend.getEmail() + "]";
 	}
 	
 	

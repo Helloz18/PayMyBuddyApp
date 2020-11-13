@@ -18,7 +18,7 @@ public class BankAccount {
 	@Id
 	@Column(name ="bank_account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private String bankName;
 	private String accountNumber;
 	
@@ -39,10 +39,10 @@ public class BankAccount {
 
 
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getBankName() {

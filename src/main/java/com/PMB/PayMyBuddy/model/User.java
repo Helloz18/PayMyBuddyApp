@@ -2,18 +2,25 @@ package com.PMB.PayMyBuddy.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class User {
 
 	@Id
 	@Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@Column(unique = true)
 	private String email;
 	private String password;
 	private String firstname;
@@ -39,9 +46,20 @@ public class User {
 
 	@ManyToMany
     @JoinTable(name="user_money_friends",
-        joinColumns={@JoinColumn(name="user", referencedColumnName="user_id")},
+        joinColumns={@JoinColumn(name="money_sender", referencedColumnName="user_id")},
         inverseJoinColumns={@JoinColumn(name="money_friend", referencedColumnName="user_id")}
     )
+	@JsonIgnoreProperties(
+			{"id",
+			 "password",
+			 "appAccount",
+			 "moneyFriends",
+			 "role","enabled",
+			 "addresses",
+			 "phoneNumbers",
+			 "bankAccount",
+			 "moneyTransfers",
+			 "birthdate"})
 	 private List<User> moneyFriends;
 	
 	
@@ -311,11 +329,13 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id="+id+", email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", birthdate=" + birthdate + ", appAccount=" + appAccount + ", role=" + role + ", enabled=" + enabled
-				+ ", addresses=" + addresses + ", phoneNumbers=" + phoneNumbers + ", bankAccount=" + bankAccount
-				+ ", moneyTransfers=" + moneyTransfers + "]";
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", birthdate=" + birthdate + ", appAccount=" + appAccount + ", role="
+				+ role + ", enabled=" + enabled + ", addresses=" + addresses + ", phoneNumbers=" + phoneNumbers
+				+ ", bankAccount=" + bankAccount + ", moneyFriends=" + moneyFriends + ", moneyTransfers="
+				+ moneyTransfers + "]";
 	}
+	
 
 
 	

@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.PMB.PayMyBuddy.exception.QuotaReachedException;
 import com.PMB.PayMyBuddy.exception.UserNotFoundException;
-import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.UserRepository;
 
@@ -47,8 +45,11 @@ public class UserService {
 				if(list == null) {
 					list = new ArrayList<>();
 				}
+				if(list.contains(moneyFriend)) {
+					LOGGER.error("user "+moneyFriendEmail+" is already a money friend.");
+				}else {
 				list.add(moneyFriend);
-				user.setMoneyFriends(list);
+				user.setMoneyFriends(list);}
 			}else {
 				LOGGER.error("no user exists or is enabled with email="+moneyFriendEmail+".");
 				throw new UserNotFoundException("wrong email.");
@@ -59,9 +60,15 @@ public class UserService {
 	}
 	
 	
-	public void save(User user) {
-		userRepo.save(user);
+	public User save(User user) {
+		return userRepo.save(user);
 	}
+	
+	public void delete(User user) {
+		userRepo.delete(user);
+	}
+	
+	
 	
 	
 }

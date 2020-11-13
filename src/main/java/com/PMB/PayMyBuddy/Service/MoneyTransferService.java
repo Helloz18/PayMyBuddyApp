@@ -63,6 +63,7 @@ public class MoneyTransferService {
 		Double moneyCollected = 0.00;
 		
 		fromBankToUser.setMoneySender(user);
+		fromBankToUser.setMoneyFriend(user);
 		fromBankToUser.setDescription(description);
 		fromBankToUser.setDate(OffsetDateTime.now());
 		TypeOfTransfer type = typeService.getById(3);
@@ -86,7 +87,6 @@ public class MoneyTransferService {
 					}
 					list.add(fromBankToUser);
 					user.setMoneyTransfers(list);
-					
 				}else {
 					LOGGER.error("quota reached, the amountMax="+amountMax+" will be reached.");
 					throw new QuotaReachedException("quota reached exception.");				
@@ -94,7 +94,7 @@ public class MoneyTransferService {
 			} catch (QuotaReachedException e) {
 				e.printStackTrace();
 			}
-			
+
 			//Saving in database the transfer
 			try {
 				moneyTransferRepository.save(fromBankToUser);
@@ -104,6 +104,7 @@ public class MoneyTransferService {
 			}
 		}
 		map.put(fromBankToUser, moneyCollected);
+		System.out.println(fromBankToUser);
 		return map;
 	}
 	
@@ -114,6 +115,7 @@ public class MoneyTransferService {
 		Double moneyCollected = 0.00;
 
 		fromUserToBank.setMoneySender(user);
+		fromUserToBank.setMoneyFriend(user);
 		fromUserToBank.setDescription(description);
 		fromUserToBank.setDate(OffsetDateTime.now());
 		TypeOfTransfer type = typeService.getById(2);

@@ -3,8 +3,10 @@ package com.PMB.PayMyBuddy.serviceTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -109,7 +111,7 @@ class MoneyTransferServiceTest {
 		//THEN
 		assertEquals(100.00, key.getAmount());
 		assertEquals(90.00, key.getMoneySender().getAppAccount());
-		assertEquals(null, key.getMoneyFriend());
+		assertEquals(user, key.getMoneyFriend());
 		
 	}
 	
