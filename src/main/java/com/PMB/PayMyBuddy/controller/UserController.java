@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.model.MoneyTransfer;
@@ -25,19 +27,23 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/user/{user_id}")
-	public User getUser(@PathVariable Long user_id) {
-		return userService.get(user_id);
+	@GetMapping("/")
+	public User getUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		return userService.getUserByEmail(userDetails.getUsername());
 	}
 	
-	@GetMapping("/user/all")
+	@GetMapping("/admin/all")
 	public List<User> getAllUsers() {
 		return userService.findAll();
 	}
 	
-	@GetMapping("/user/{user_id}/allMoneyTransfers")
-	public List<MoneyTransfer> getUserTransfer(@PathVariable Long user_id) {
-		return userService.get(user_id).getMoneyTransfers();
+	@GetMapping("/allMoneyTransfers")
+	public List<MoneyTransfer> getUserTransfer() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		return userService.getUserByEmail(userDetails.getUsername()).getMoneyTransfers();
 	}
 	
 	@PutMapping("/user/{user_id}")
