@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.PMB.PayMyBuddy.model.BankAccount;
 
 @Repository
-public interface bankAccountRepository extends JpaRepository <BankAccount, Long> {
+public interface BankAccountRepository extends JpaRepository <BankAccount, Long> {
 
 }

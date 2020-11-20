@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PMB.PayMyBuddy.exception.EmptyBankAccountException;
-import com.PMB.PayMyBuddy.exception.NotEnoughMoneyException;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.User;
-import com.PMB.PayMyBuddy.repository.bankAccountRepository;
+import com.PMB.PayMyBuddy.repository.BankAccountRepository;
 
 @Service
 @Transactional
@@ -21,7 +20,7 @@ public class BankAccountService {
 	
 
 	@Autowired
-	bankAccountRepository bankRepository;
+	BankAccountRepository bankRepository;
 	
 	@Autowired
 	UserService userService;
@@ -45,8 +44,12 @@ public class BankAccountService {
 		LOGGER.info("user bank account is granted with amountGiven = "+amountToSend+".");		
 	}
 	
-	public void save(BankAccount bankAccount) {
-		bankRepository.save(bankAccount);
+	public void saveBankAccount(User user, BankAccount bankAccount) {
+		BankAccount bank = user.getBankAccount();
+		if(bank == null) {
+			user.setBankAccount(bankAccount);
+			bankRepository.save(bankAccount);
+		}
 	}
 	
 }

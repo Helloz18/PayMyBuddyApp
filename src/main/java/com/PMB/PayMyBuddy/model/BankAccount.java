@@ -22,10 +22,12 @@ public class BankAccount {
 	private String bankName;
 	private String accountNumber;
 	
+	@JsonIgnore
+	@OneToOne(mappedBy = "bankAccount")
+	private User user;
 	
 	//boolean to simulate the response from the bank
 	// --> if the user has money on his bank account or not
-	@JsonIgnore
 	private boolean responseFromBankApi;
 	
 	
@@ -62,7 +64,7 @@ public class BankAccount {
 
 	@Override
 	public String toString() {
-		return "BankAccount [bankName=" + bankName + ", accountNumber=" + accountNumber +  "]";
+		return "BankAccount [bankName=" + bankName + ", accountNumber=" + accountNumber + "]";
 	}
 
 	public boolean isResponseFromBankApi() {
@@ -71,6 +73,14 @@ public class BankAccount {
 
 	public void setResponseFromBankApi(boolean responseFromBankApi) {
 		this.responseFromBankApi = responseFromBankApi;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

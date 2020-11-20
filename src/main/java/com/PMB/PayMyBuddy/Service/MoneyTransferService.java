@@ -98,7 +98,7 @@ public class MoneyTransferService {
 			//Saving in database the transfer
 			try {
 				moneyTransferRepository.save(fromBankToUser);
-				userService.save(user);
+				//userService.save(user);
 			} catch(Exception ex) {
 				ex.printStackTrace();
 			}
@@ -154,7 +154,56 @@ public class MoneyTransferService {
 	}
 	
 	public Map<MoneyTransfer, Double> processTransferToFriend(
-			User user,User moneyFriend, Double amountAsked, String description) {
-	return null;
+			User user,String moneyFriendEmail, Double amountAsked, String description) {
+		Map<MoneyTransfer, Double> map = new HashMap<MoneyTransfer, Double>();
+		MoneyTransfer fromUserToFriend = new MoneyTransfer();
+		Double moneyCollected = 0.00;
+
+		User moneyFriend = userService.getUserByEmail(moneyFriendEmail);		
+		List<User> moneyFriends = user.getMoneyFriends();
+		if(moneyFriends.size() > 0 && moneyFriends.contains(moneyFriend) && moneyFriend.isEnabled()) {
+			fromUserToFriend.setMoneySender(user);
+			fromUserToFriend.setMoneyFriend(moneyFriend);
+			fromUserToFriend.setAmount(amountAsked);
+			fromUserToFriend.setDate(OffsetDateTime.now());
+			TypeOfTransfer type = typeService.getById(1);
+			fromUserToFriend.setTypeOfTransfer(type);
+			fromUserToFriend.setDescription(description);
+
+			Double userAccount = user.getAppAccount();
+			if(userAccount >= amountAsked) {
+				userAccount = userAccount - amountAsked;
+				user.setAppAccount(userAccount);
+
+				Double friendAccount = moneyFriend.getAppAccount();
+
+				Double amount = typeService.amountFromTypeOfTransfer(amountAsked, type.getId());
+				moneyCollected = typeService.moneyCollected(amountAsked, type.getId());
+				Double amountTotal = friendAccount + amount;
+				if(amountTotal <= amountMax) {
+					moneyFriend.setAppAccount(amountTotal);
+				}else {
+					LOGGER.error("AmountMax on MoneyFriend "+moneyFriendEmail+" reached.");
+				}
+
+				List<MoneyTransfer> list = user.getMoneyTransfers();
+				if(list == null) {
+					list = new ArrayList<>();
+				}
+				list.add(fromUserToFriend);
+				user.setMoneyTransfers(list);
+
+				moneyTransferRepository.save(fromUserToFriend);				
+			}else {
+				LOGGER.error("not enough money on app account.");
+			}
+
+		}else {
+			LOGGER.error("the moneyFriend is not in the list, or is not enabled.");
+		}
+
+		map.put(fromUserToFriend, moneyCollected);
+		return map;
+
 	}
 }

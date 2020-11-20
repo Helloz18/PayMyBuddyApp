@@ -1,6 +1,5 @@
 package com.PMB.PayMyBuddy.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PMB.PayMyBuddy.Service.BankAccountService;
+import com.PMB.PayMyBuddy.Service.MoneyTransferService;
 import com.PMB.PayMyBuddy.Service.UserService;
+import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.MoneyTransfer;
 import com.PMB.PayMyBuddy.model.User;
 
@@ -27,42 +29,112 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/")
+	@Autowired
+	private BankAccountService bankService;
+	
+	@Autowired
+	private MoneyTransferService moneyTransferService;
+	
+	@GetMapping("/user/")
 	public User getUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		return userService.getUserByEmail(userDetails.getUsername());
 	}
 	
+	@GetMapping("/user/myMoneyTransfers")
+	public List<MoneyTransfer> getUserTransfer() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		return userService.getUserByEmail(username).getMoneyTransfers();
+	}
+	
+	
 	@GetMapping("/admin/all")
 	public List<User> getAllUsers() {
 		return userService.findAll();
 	}
 	
-	@GetMapping("/allMoneyTransfers")
-	public List<MoneyTransfer> getUserTransfer() {
+		
+	@PostMapping("/user/moneyFriends")
+	public ResponseEntity<User> addMoneyFriend(@RequestParam String moneyFriendEmail) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		return userService.getUserByEmail(userDetails.getUsername()).getMoneyTransfers();
-	}
-	
-	@PutMapping("/user/{user_id}")
-	public ResponseEntity<User> addMoneyFriend(@PathVariable Long user_id, @RequestParam String moneyFriendEmail) {
-		User user = userService.get(user_id);
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
 		userService.addMoneyFriend(user, moneyFriendEmail);
 		user = userService.save(user);
-		 return ResponseEntity.ok(user);
+		return ResponseEntity.ok(user);
+	}
+	
+	@DeleteMapping("/user/moneyFriends")
+	public ResponseEntity<User> deleteMoneyFriend(@RequestParam String moneyFriendEmail) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
+		userService.deleteMoneyFriend(user, moneyFriendEmail);
+		user = userService.save(user);
+		return ResponseEntity.ok(user);
 	}
 
-	@PostMapping("/user/new")
+	
+	@PostMapping("/new")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		userService.save(user);
 		return ResponseEntity.ok(user);		
 	}
 	
-	@DeleteMapping("/user/{user_id}")
+	@DeleteMapping("/admin/{user_id}")
 	public void deleteUser(@PathVariable Long user_id) {
 		User user = userService.get(user_id);
 		userService.delete(user);
+	}
+	
+	@PutMapping("/user/deactivate")
+	public void deActivateUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
+		userService.deactivate(user);
+		userService.save(user);
+	}
+	
+	@PostMapping("/user/moneyTransfer")
+	public ResponseEntity<User> getMoneyFromBank(
+			@RequestParam Double amountAsked, @RequestParam String description) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
+		moneyTransferService.processTransferFromBank(user, amountAsked, description);
+		userService.save(user);
+		return ResponseEntity.ok(user);
+	}
+	
+	@PostMapping("/user/sendMoneyToFriend")
+	public ResponseEntity<User> sendMoneyToFriend(@RequestParam String moneyFriendEmail,
+			@RequestParam Double amountAsked, @RequestParam String description) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
+		moneyTransferService.processTransferToFriend(user, moneyFriendEmail, amountAsked, description);
+		userService.save(user);
+		return ResponseEntity.ok(user);
+	}
+	
+	
+	@PostMapping("/user/bankAccount")
+	public ResponseEntity<User> addBankAccount(@RequestBody BankAccount bankAccount){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		String username = userDetails.getUsername();
+		User user = userService.getUserByEmail(username);
+		bankService.saveBankAccount(user, bankAccount);
+		userService.save(user);
+		return ResponseEntity.ok(user);		
 	}
 }

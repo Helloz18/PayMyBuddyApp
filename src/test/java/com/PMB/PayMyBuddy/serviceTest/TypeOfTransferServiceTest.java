@@ -21,7 +21,7 @@ import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
 import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.TypeOfTransferRepository;
-import com.PMB.PayMyBuddy.repository.bankAccountRepository;
+import com.PMB.PayMyBuddy.repository.BankAccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)

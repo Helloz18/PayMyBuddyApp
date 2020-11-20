@@ -19,7 +19,7 @@ public class User {
 	@Id
 	@Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	@Column(unique = true)
 	private String email;
 	private String password;
@@ -40,7 +40,7 @@ public class User {
 		
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="user_id", nullable=false)
+	@JoinColumn(name="bankAccount_id")
 	private BankAccount bankAccount;
 	
 
@@ -97,11 +97,11 @@ public class User {
 
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -332,7 +332,7 @@ public class User {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", birthdate=" + birthdate + ", appAccount=" + appAccount + ", role="
 				+ role + ", enabled=" + enabled + ", addresses=" + addresses + ", phoneNumbers=" + phoneNumbers
-				+ ", bankAccount=" + bankAccount + ", moneyFriends=" + moneyFriends + ", moneyTransfers="
+				+ ", bankAccount=" + bankAccount + ", moneyFriends=" + moneyFriends.size() + ", moneyTransfers="
 				+ moneyTransfers + "]";
 	}
 	

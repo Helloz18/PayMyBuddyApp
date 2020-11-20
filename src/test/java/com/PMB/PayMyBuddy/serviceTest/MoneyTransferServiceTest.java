@@ -66,7 +66,7 @@ class MoneyTransferServiceTest {
         user.setMoneyFriends(moneyFriends);
                 
         BankAccount bankAccount = new BankAccount("banque de Test", "123456789");
-		bankAccount.setResponseFromBankApi(true);
+        bankAccount.setResponseFromBankApi(true);
 		user.setBankAccount(bankAccount);
 		
         Mockito.when(userService.getUserByEmail(user.getEmail()))
@@ -75,7 +75,30 @@ class MoneyTransferServiceTest {
 
 	@Test
 	public void whenUserSendsMoneyToMoneyFriendThenAppAccountIsCutFromAmount() {
-	}
+		//GIVEN
+		User user = userService.getUserByEmail("test@test.com");
+		user.setAppAccount(200.00);
+		String moneyFriendEmail = "x@x.com";
+		Double amountAsked = 100.00;
+		String description = "envoie 100.00 depuis test@test.com vers x@x.com";	
+		TypeOfTransfer type = new TypeOfTransfer("text", 10.00);
+		type.setId(1);
+	    Mockito.when(typeService.getById(1)).thenReturn(type);
+		Mockito.when(typeService.amountFromTypeOfTransfer(100.00, type.getId()))
+		        .thenReturn(90.00);
+		MoneyTransfer key = new MoneyTransfer();
+				
+		    //WHEN    
+			Map<MoneyTransfer, Double> map = moneyTransferService.
+					processTransferToFriend(user, moneyFriendEmail, amountAsked, description);
+			for(Map.Entry<MoneyTransfer, Double> entry : map.entrySet()) {
+				key = entry.getKey();
+			}
+			//THEN
+			assertEquals(100.00, key.getAmount());
+			assertEquals(100.00, key.getMoneySender().getAppAccount());
+			
+			}
 	
 	@Test
 	public void whenUserSendsMoneyToMoneyFriendThenMoneyFriendAppAccountIsCredited() {

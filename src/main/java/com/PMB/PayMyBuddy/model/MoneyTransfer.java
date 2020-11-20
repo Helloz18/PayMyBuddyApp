@@ -5,7 +5,6 @@ import java.time.OffsetDateTime;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +14,7 @@ import javax.persistence.Table;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "money_transfer")
@@ -37,12 +37,32 @@ public class MoneyTransfer {
 	
 	@ManyToOne
 	@JoinColumn(name="money_sender_id", nullable=false)
-	@JsonIgnore
+	@JsonIgnoreProperties(
+			{"id",
+			 "password",
+			 "appAccount",
+			 "moneyFriends",
+			 "role","enabled",
+			 "addresses",
+			 "phoneNumbers",
+			 "bankAccount",
+			 "moneyTransfers",
+			 "birthdate"})
 	private User moneySender;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="money_friend_id")
-	@JsonIgnore
+	@JsonIgnoreProperties(
+			{"id",
+			 "password",
+			 "appAccount",
+			 "moneyFriends",
+			 "role","enabled",
+			 "addresses",
+			 "phoneNumbers",
+			 "bankAccount",
+			 "moneyTransfers",
+			 "birthdate"})
 	private User moneyFriend;
 	
 	public MoneyTransfer() {

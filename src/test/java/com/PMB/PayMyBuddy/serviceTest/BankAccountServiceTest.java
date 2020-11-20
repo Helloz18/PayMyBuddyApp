@@ -19,7 +19,7 @@ import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.exception.QuotaReachedException;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.User;
-import com.PMB.PayMyBuddy.repository.bankAccountRepository;
+import com.PMB.PayMyBuddy.repository.BankAccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)
@@ -29,7 +29,7 @@ public class BankAccountServiceTest {
 	BankAccountService bankAccountService;
 	
 	@MockBean
-	bankAccountRepository bankRepository;
+	BankAccountRepository bankRepository;
 	
 	@MockBean
 	UserService userService;
