@@ -12,66 +12,70 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name ="address")
+@Table(name = "address")
 public class Address {
-	
+
 	@Id
 	@Column(name = "address_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private long id;
 	private String number;
 	private String street;
-	private int zip;
+	private String zip;
 	private String city;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private User user;
-	
-	
+
 	public Address() {
 	}
-	
-	
-	public Address(String number, String street, int zip, String city) {
+
+	public Address(String number, String street, String zip, String city) {
 		this.number = number;
 		this.street = street;
 		this.zip = zip;
 		this.city = city;
 	}
 
-
-
-
-
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getNumber() {
 		return number;
 	}
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
 	public String getStreet() {
 		return street;
 	}
+
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public int getZip() {
+
+	public String getZip() {
 		return zip;
 	}
-	public void setZip(int zip) {
+
+	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
@@ -84,13 +88,10 @@ public class Address {
 		this.user = user;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Address [number=" + number + ", street=" + street + ", zip=" + zip + ", city=" + city + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -101,10 +102,9 @@ public class Address {
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
 		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + zip;
+		result = prime * result + ((zip == null) ? 0 : zip.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -137,11 +137,12 @@ public class Address {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
-		if (zip != other.zip)
+		if (zip == null) {
+			if (other.zip != null)
+				return false;
+		} else if (!zip.equals(other.zip))
 			return false;
 		return true;
 	}
-	
-	
 
 }

@@ -18,6 +18,7 @@ public class PhoneNumber {
 	@Id
 	@Column(name ="phone_number_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	public long id;
 	public String name;
 	public String number;

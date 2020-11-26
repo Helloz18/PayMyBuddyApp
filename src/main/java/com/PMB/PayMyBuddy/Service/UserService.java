@@ -7,6 +7,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -115,6 +118,7 @@ public class UserService {
 	}
 	
 	public void addAddress(User user, Address address) {
+		address.setUser(user);
 		List<Address> addresses = user.getAddresses();
 		if(addresses == null) {
 			addresses = new ArrayList<>();
@@ -125,6 +129,7 @@ public class UserService {
 	}
 	
 	public void addPhoneNumber(User user, PhoneNumber phone) {
+		phone.setUser(user);
 		List<PhoneNumber> phoneNumbers = user.getPhoneNumbers();
 		if(phoneNumbers == null) {
 			phoneNumbers = new ArrayList<>();
@@ -180,5 +185,11 @@ public class UserService {
 				phoneRepo.delete(phoneToDelete);
 			}
 		}
+	}
+	
+	public User getConnectedUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		return this.getUserByEmail(userDetails.getUsername());	
 	}
 }

@@ -2,14 +2,11 @@ package com.PMB.PayMyBuddy.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 
 @Entity
 @Table(name = "user")
@@ -18,63 +15,47 @@ public class User {
 
 	@Id
 	@Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private Long id;
 	@Column(unique = true)
 	private String email;
 	private String password;
 	private String firstname;
-	private String lastname;	
+	private String lastname;
 	private Date birthdate;
 	private double appAccount;
-	
-	//for Spring security
+
+	// for Spring security
 	private String role;
 	private boolean enabled;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Address> addresses;
-	
-	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<PhoneNumber> phoneNumbers;
-		
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="bankAccount_id")
+	@JoinColumn(name = "bankAccount_id")
 	private BankAccount bankAccount;
-	
 
 	@ManyToMany
-    @JoinTable(name="user_money_friends",
-        joinColumns={@JoinColumn(name="money_sender", referencedColumnName="user_id")},
-        inverseJoinColumns={@JoinColumn(name="money_friend", referencedColumnName="user_id")}
-    )
-	@JsonIgnoreProperties(
-			{"id",
-			 "password",
-			 "appAccount",
-			 "moneyFriends",
-			 "role","enabled",
-			 "addresses",
-			 "phoneNumbers",
-			 "bankAccount",
-			 "moneyTransfers",
-			 "birthdate"})
-	 private List<User> moneyFriends;
-	
-	
-	
-	@OneToMany(mappedBy="moneySender")
+	@JoinTable(name = "user_money_friends", joinColumns = {
+			@JoinColumn(name = "money_sender", referencedColumnName = "user_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "money_friend", referencedColumnName = "user_id") })
+	@JsonIgnoreProperties({ "id", "password", "appAccount", "moneyFriends", "role", "enabled", "addresses",
+			"phoneNumbers", "bankAccount", "moneyTransfers", "birthdate" })
+	private List<User> moneyFriends;
+
+	@OneToMany(mappedBy = "moneySender")
 	private List<MoneyTransfer> moneyTransfers;
-	
-	
-	
+
 	public User() {
 	}
 
-	
-	public User(String email, String password, String firstname, String lastname, Date birthdate,
-			double appAccount, String role, boolean enabled, List<Address> addresses, List<PhoneNumber> phoneNumbers,
+	public User(String email, String password, String firstname, String lastname, Date birthdate, double appAccount,
+			String role, boolean enabled, List<Address> addresses, List<PhoneNumber> phoneNumbers,
 			BankAccount bankAccount, List<MoneyTransfer> moneyTransfers, List<User> moneyFriends) {
 		this.email = email;
 		this.password = password;
@@ -90,12 +71,6 @@ public class User {
 		this.moneyTransfers = moneyTransfers;
 		this.moneyFriends = moneyFriends;
 	}
-
-
-
-
-
-
 
 	public Long getId() {
 		return id;
@@ -169,7 +144,6 @@ public class User {
 		this.appAccount = appAccount;
 	}
 
-
 	public BankAccount getBankAccount() {
 		return bankAccount;
 	}
@@ -194,35 +168,21 @@ public class User {
 		this.role = role;
 	}
 
-
 	public List<User> getMoneyFriends() {
 		return moneyFriends;
 	}
-
 
 	public void setMoneyFriends(List<User> moneyFriends) {
 		this.moneyFriends = moneyFriends;
 	}
 
-
-
-
 	public List<MoneyTransfer> getMoneyTransfers() {
 		return moneyTransfers;
 	}
 
-
-
-
 	public void setMoneyTransfers(List<MoneyTransfer> moneyTransfers) {
 		this.moneyTransfers = moneyTransfers;
 	}
-
-
-
-
-
-
 
 	@Override
 	public int hashCode() {
@@ -246,12 +206,6 @@ public class User {
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
-
-
-
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -326,7 +280,6 @@ public class User {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", firstname=" + firstname
@@ -335,8 +288,5 @@ public class User {
 				+ ", bankAccount=" + bankAccount + ", moneyFriends=" + moneyFriends.size() + ", moneyTransfers="
 				+ moneyTransfers + "]";
 	}
-	
 
-
-	
 }

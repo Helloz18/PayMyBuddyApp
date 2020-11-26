@@ -23,6 +23,7 @@ public class MoneyTransfer {
 	@Id
 	@Column(name ="money_transfer_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private long id;
 		
 	private double amount;	

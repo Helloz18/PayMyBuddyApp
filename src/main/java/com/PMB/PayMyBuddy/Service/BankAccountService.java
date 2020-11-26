@@ -1,6 +1,5 @@
 package com.PMB.PayMyBuddy.Service;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,41 +14,56 @@ import com.PMB.PayMyBuddy.repository.BankAccountRepository;
 @Service
 @Transactional
 public class BankAccountService {
-	
-	final Logger LOGGER = LoggerFactory.getLogger(BankAccountService.class);	
-	
+
+	final Logger LOGGER = LoggerFactory.getLogger(BankAccountService.class);
 
 	@Autowired
 	BankAccountRepository bankRepository;
-	
+
 	@Autowired
 	UserService userService;
 
-	public Double fundAppAccount(User user, Double amountAsked)  {
+	/**
+	 * This method depends on the response of the user's bank API.
+	 * 
+	 * @param user
+	 * @param amountAsked
+	 * @return the amountAsked if the response from the bank is true
+	 */
+	public Double fundAppAccount(User user, Double amountAsked) {
 		try {
-			if(user.getBankAccount().isResponseFromBankApi()) {
-				amountAsked = amountAsked;
-			}else {
-				LOGGER.error("not enough money on bank account to get "+amountAsked +".");
+			if (user.getBankAccount().isResponseFromBankApi()) {
+				return amountAsked;
+			} else {
+				LOGGER.error("not enough money on bank account to get " + amountAsked + ".");
 				throw new EmptyBankAccountException("not enough money on bank account.");
 			}
 		} catch (EmptyBankAccountException e) {
 			e.printStackTrace();
 		}
-		
 		return amountAsked;
 	}
-	
+
+	/**
+	 * This method depends on the response of the user's bank API.
+	 * 
+	 * @param user
+	 * @param amountToSend
+	 */
 	public void fundBankAccount(User user, Double amountToSend) {
-		LOGGER.info("user bank account is granted with amountGiven = "+amountToSend+".");		
-	}
-	
-	public void saveBankAccount(User user, BankAccount bankAccount) {
-		BankAccount bank = user.getBankAccount();
-		if(bank == null) {
-			user.setBankAccount(bankAccount);
-			bankRepository.save(bankAccount);
+		if (user.getBankAccount().isResponseFromBankApi()) {
+			LOGGER.info("user bank account is granted with amountGiven = " + amountToSend + ".");
 		}
 	}
-	
+
+	public void saveBankAccount(User user, BankAccount bankAccount) {
+		BankAccount bank = user.getBankAccount();
+		if (bank == null) {
+			user.setBankAccount(bankAccount);
+			bankRepository.save(bankAccount);
+		} else {
+			LOGGER.info("user's bank already exists");
+		}
+	}
+
 }

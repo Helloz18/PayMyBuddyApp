@@ -30,7 +30,4 @@ public class TypeOfTransferService {
 		return typeRepository.getOne(id);
 	}
 	
-	public void save(TypeOfTransfer type) {
-		typeRepository.save(type);
-	}
 }
