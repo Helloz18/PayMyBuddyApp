@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
 import com.PMB.PayMyBuddy.Service.BankAccountService;
 import com.PMB.PayMyBuddy.Service.UserService;
-import com.PMB.PayMyBuddy.exception.QuotaReachedException;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.BankAccountRepository;

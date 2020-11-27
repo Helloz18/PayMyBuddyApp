@@ -20,7 +20,9 @@ public class PhoneNumber {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	public long id;
+	@Column(length=20)
 	public String name;
+	@Column(length=10)
 	public String number;
 	
 	@ManyToOne

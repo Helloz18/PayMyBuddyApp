@@ -2,9 +2,6 @@ package com.PMB.PayMyBuddy.serviceTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -15,13 +12,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
-import com.PMB.PayMyBuddy.Service.MoneyTransferService;
 import com.PMB.PayMyBuddy.Service.TypeOfTransferService;
-import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
-import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.TypeOfTransferRepository;
-import com.PMB.PayMyBuddy.repository.BankAccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)
@@ -45,13 +38,13 @@ class TypeOfTransferServiceTest {
 
 
 	@Test
-	void whenGetByIdIsCalledThenTypeOfTransferIsReturned() {
+	void whenGetByNameIsCalledThenTypeOfTransferIsReturned() {
 		//GIVEN
 		int id = 3;
 		//WHEN
 		TypeOfTransfer type = typeService.getById(id);
 		//THEN
-		assertEquals("test", type.getName());
+		assertEquals(3, type.getId());
 	}
 	
 	@Test

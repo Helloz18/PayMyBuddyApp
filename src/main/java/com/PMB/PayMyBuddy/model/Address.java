@@ -20,8 +20,10 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private long id;
+	@Column(length=10)
 	private String number;
 	private String street;
+	@Column(length=10)
 	private String zip;
 	private String city;
 

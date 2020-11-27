@@ -29,8 +29,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 			.dataSource(dataSource)
 			.passwordEncoder(new BCryptPasswordEncoder())
-			.usersByUsernameQuery("select u.email as username, u.password, u.enabled from \"pmb\".user u where u.email=?")
-			.authoritiesByUsernameQuery("select u.email as username, u.role as role from \"pmb\".user u where u.email=?");
+			.usersByUsernameQuery(
+					"select u.email as username, u.password, u.enabled from \"paymybuddy\".user u where u.email=?")
+			.authoritiesByUsernameQuery(
+					"select u.email as username, u.role as role from \"paymybuddy\".user u where u.email=?");
 	}
 
 	/**
