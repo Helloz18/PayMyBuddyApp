@@ -56,11 +56,18 @@ public class BankAccountService {
 		}
 	}
 
+	/**
+	 * Save a Bank Account
+	 * 
+	 * @param user
+	 * @param bankAccount
+	 */
 	public void saveBankAccount(User user, BankAccount bankAccount) {
 		BankAccount bank = user.getBankAccount();
 		if (bank == null) {
 			user.setBankAccount(bankAccount);
 			bankRepository.save(bankAccount);
+			LOGGER.info("bank account saved for user "+user.getEmail());
 		} else {
 			LOGGER.info("user's bank already exists");
 		}

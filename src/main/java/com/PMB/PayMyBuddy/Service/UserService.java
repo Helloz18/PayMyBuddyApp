@@ -55,10 +55,6 @@ public class UserService {
 		user.setEnabled(false);
 	}
 	
-	public void delete(User user) {
-		userRepo.delete(user);
-	}
-
 	public User getUserByEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
@@ -67,6 +63,13 @@ public class UserService {
 		return userRepo.findAll();
 	}
 	
+	/**
+	 * This method allows to a user to add a moneyFriend by his email.
+	 * If the friend is already in the user moneyFriend, then nothing is added.
+	 * The moneyFriend have to be registered and enabled.
+	 * @param user
+	 * @param moneyFriendEmail
+	 */
 	public void addMoneyFriend(User user, String moneyFriendEmail) {		
 		User moneyFriend = userRepo.findByEmail(moneyFriendEmail);
 		try {
@@ -90,9 +93,12 @@ public class UserService {
 		}				
 	}
 	
-	
-	
-
+	/**
+	 * This method remove a moneyFriend from the friends of a user.
+	 * The moneyFriend have to be in the user moneyFriends.
+	 * @param user
+	 * @param moneyFriendEmail
+	 */
 	public void deleteMoneyFriend(User user, String moneyFriendEmail) {
 		User moneyFriend = userRepo.findByEmail(moneyFriendEmail);		
 		try {
@@ -187,6 +193,11 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * This method is used to check which user is connected. 
+	 * It's a security method.
+	 * @return
+	 */
 	public User getConnectedUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();

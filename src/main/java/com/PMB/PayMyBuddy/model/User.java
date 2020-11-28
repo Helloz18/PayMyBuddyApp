@@ -20,7 +20,7 @@ public class User {
 	private Long id;
 	@Column(unique = true)
 	private String email;
-	@Column(length=60)
+	@Column(length = 60)
 	private String password;
 	private String firstname;
 	private String lastname;
@@ -28,7 +28,7 @@ public class User {
 	private double appAccount;
 
 	// for Spring security
-	@Column(length=50)
+	@Column(length = 50)
 	private String role;
 	private boolean enabled;
 

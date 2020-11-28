@@ -18,43 +18,44 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class TypeOfTransfer {
 
 	@Id
-	@Column(name ="type_of_transfer_id")
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "type_of_transfer_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private double percentToCollect;
-	
-	@OneToMany(mappedBy="typeOfTransfer", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "typeOfTransfer", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<MoneyTransfer> moneyTransfers;
-	
-	public TypeOfTransfer() {		
+
+	public TypeOfTransfer() {
 	}
-	
-	
-		
+
 	public TypeOfTransfer(String name, double percentToCollect) {
 		this.name = name;
 		this.percentToCollect = percentToCollect;
 	}
 
-
-
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public double getPercentToCollect() {
 		return percentToCollect;
 	}
+
 	public void setPercentToCollect(double percentToCollect) {
 		this.percentToCollect = percentToCollect;
 	}
@@ -67,12 +68,9 @@ public class TypeOfTransfer {
 		this.moneyTransfers = moneyTransfers;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "TypeOfTransfer [name=" + name + ", percentToCollect=" + percentToCollect + "]";
 	}
-	
-	
+
 }

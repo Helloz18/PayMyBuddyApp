@@ -62,7 +62,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenValidEmailThenUSerShouldBeFound() {
+	public void when_getValidEmail_thenUSerShouldBeFound() {
 		// GIVEN
 		String email = "test@test.com";
 		// WHEN
@@ -72,7 +72,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenValidIdThenUSerShouldBeFound() {
+	public void when_getValidId_thenUSerShouldBeFound() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -83,7 +83,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void testGeListUsersReturnsFindAllUsersFromRepository() {
+	public void when_findAllUsers_thenAllUsersAreFind() {
 
 		User user = new User("test@test.com", "1234", "test", "test", null, 0, "ROLE_USER", true, null, null, null,
 				null, null);
@@ -100,7 +100,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenAddNewFriendThenNewFriendIsInUserMoneyFriends() {
+	public void whenUser_addNewFriend_thenNewFriendIsInUserMoneyFriends() {
 		// GIVEN
 		User friend = new User("friend@test.com", "1234", "ami", "son nom", null, 0, "ROLE_USER", true, null, null,
 				null, null, null);
@@ -117,7 +117,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenAddNewFriendIsDisabledThenNewFriendIsNotAdded() {
+	public void whenUser_addNewFriendWhoIsDisabled_thenNewFriendIsNotAdded() {
 		// GIVEN
 		User friend = new User("friend@test.com", "1234", "ami", "son nom", null, 0, "ROLE_USER", false, null, null,
 				null, null, null);
@@ -133,7 +133,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenDeleteFriendThenDeletedFriendIsNotInUserMoneyFriends() {
+	public void whenUser_deleteFriend_thenDeletedFriendIsNotInUserMoneyFriends() {
 		// GIVEN
 		User friend = new User("friend@test.com", "1234", "ami", "son nom", null, 0, "ROLE_USER", true, null, null,
 				null, null, null);
@@ -150,7 +150,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenAddWrongEmailForFriendThenNoNewMoneyFriendIsAdded() {
+	public void whenUser_addWrongEmailForFriend_thenNoNewMoneyFriendIsAdded() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -162,7 +162,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenEmptyThenNoMoneyFriendIsAdded() {
+	public void whenUser_addEmpty_thenNoMoneyFriendIsAdded() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -173,7 +173,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenDelete_but_noMoneyFriend_thenException() {
+	public void whenUser_deleteFriendButNoMoneyFriend_thenListFriendsStaysEmpty() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -184,7 +184,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenDeleteFriend_butNotPresentInMoneyFriends() {
+	public void whenUser_deleteFriendButNotPresentInMoneyFriends_thenNoAction() {
 		// GIVEN
 		User friend = new User("friend@test.com", "1234", "ami", "son nom", null, 0, "ROLE_USER", true, null, null,
 				null, null, null);
@@ -201,7 +201,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenAddNewAddressThenNewAddressIsInUserAddresses() {
+	public void whenUser_addNewAddress_thenNewAddressIsInUserAddresses() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -213,7 +213,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenAddNewPhoneNumberThenNewPhoneNumberIsInUserPhoneNumbers() {
+	public void whenUser_addNewPhoneNumber_thenNewPhoneNumberIsInUserPhoneNumbers() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -226,7 +226,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenChangeAddressThenAddressIsChangedInUserAddresses() {
+	public void whenUser_changeAddress_thenAddressIsChangedInUserAddresses() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -244,7 +244,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenChangePhoneThenPhoneIsChangedInUserPhones() {
+	public void whenUser_changePhone_thenPhoneIsChangedInUserPhones() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -262,7 +262,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenDeleteAddressThenAddressIsNotInUserAddresses() {
+	public void whenUser_deleteAddress_thenAddressIsNotInUserAddresses() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -279,7 +279,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void whenDeletePhoneThenPhoneIsDeletedInUserPhones() {
+	public void whenUser_deletePhone_thenPhoneIsDeletedInUserPhones() {
 		// GIVEN
 		String email = "test@test.com";
 		User user = userRepository.findByEmail(email);
@@ -294,5 +294,32 @@ public class UserServiceTest {
 		// THEN
 		assertEquals(0, user.getPhoneNumbers().size());
 	}
+	
+	@Test
+	public void whenUser_isDeactivate_thenEnabledIsFalse() {
+		// GIVEN
+		String email = "test@test.com";
+		User user = userRepository.findByEmail(email);
+		// WHEN
+		userService.deactivate(user);
+		// THEN
+		assertEquals(false, user.isEnabled());
+	}
 
+	@Test
+	public void whenUser_addMoneyFriendAlreadyInFriends_thenMoneyFriendIsNotAddedAgain() {
+		// GIVEN
+		String email = "test@test.com";
+		User user = userRepository.findByEmail(email);
+		User friend = new User("friend@test.com", "1234", "ami", "son nom", null, 0, "ROLE_USER", true, null, null,
+				null, null, null);
+		Mockito.when(userRepository.findByEmail(friend.getEmail())).thenReturn(friend);
+		List<User> friends = new ArrayList<>();
+		friends.add(friend);
+		user.setMoneyFriends(friends);
+		// WHEN
+		userService.addMoneyFriend(user, "friend@test.com");
+		// THEN
+		assertEquals(1, user.getMoneyFriends().size());
+	}
 }

@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,56 +20,34 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class MoneyTransfer {
 
 	@Id
-	@Column(name ="money_transfer_id")
+	@Column(name = "money_transfer_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private long id;
-		
-	private double amount;	
+
+	private double amount;
 	private String description;
 	private OffsetDateTime date;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="type_of_transfer_id", nullable=false)
+	@JoinColumn(name = "type_of_transfer_id", nullable = false)
 	@JsonIgnore
 	private TypeOfTransfer typeOfTransfer;
-	
-	
+
 	@ManyToOne
-	@JoinColumn(name="money_sender_id", nullable=false)
-	@JsonIgnoreProperties(
-			{"id",
-			 "password",
-			 "appAccount",
-			 "moneyFriends",
-			 "role","enabled",
-			 "addresses",
-			 "phoneNumbers",
-			 "bankAccount",
-			 "moneyTransfers",
-			 "birthdate"})
+	@JoinColumn(name = "money_sender_id", nullable = false)
+	@JsonIgnoreProperties({ "id", "password", "appAccount", "moneyFriends", "role", "enabled", "addresses",
+			"phoneNumbers", "bankAccount", "moneyTransfers", "birthdate" })
 	private User moneySender;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="money_friend_id")
-	@JsonIgnoreProperties(
-			{"id",
-			 "password",
-			 "appAccount",
-			 "moneyFriends",
-			 "role","enabled",
-			 "addresses",
-			 "phoneNumbers",
-			 "bankAccount",
-			 "moneyTransfers",
-			 "birthdate"})
+	@JoinColumn(name = "money_friend_id")
+	@JsonIgnoreProperties({ "id", "password", "appAccount", "moneyFriends", "role", "enabled", "addresses",
+			"phoneNumbers", "bankAccount", "moneyTransfers", "birthdate" })
 	private User moneyFriend;
-	
+
 	public MoneyTransfer() {
 	}
-	
-	
-
 
 	public MoneyTransfer(double amount, String description, OffsetDateTime date, TypeOfTransfer typeOfTransfer,
 			User moneySender, User moneyFriend) {
@@ -82,9 +59,6 @@ public class MoneyTransfer {
 		this.moneyFriend = moneyFriend;
 	}
 
-
-
-
 	public long getId() {
 		return id;
 	}
@@ -92,7 +66,6 @@ public class MoneyTransfer {
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public double getAmount() {
 		return amount;
@@ -134,7 +107,6 @@ public class MoneyTransfer {
 		this.moneySender = moneySender;
 	}
 
-
 	public User getMoneyFriend() {
 		return moneyFriend;
 	}
@@ -143,14 +115,11 @@ public class MoneyTransfer {
 		this.moneyFriend = moneyFriend;
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "MoneyTransfer [id=" + id + ", amount=" + amount + ", description=" + description + ", date=" + date
-				+ ", typeOfTransfer=" + typeOfTransfer.getId() + ", moneySender=" + moneySender.getEmail() + ", moneyFriend=" + moneyFriend.getEmail() + "]";
+				+ ", typeOfTransfer=" + typeOfTransfer.getId() + ", moneySender=" + moneySender.getEmail()
+				+ ", moneyFriend=" + moneyFriend.getEmail() + "]";
 	}
-	
-	
-	}
+
+}

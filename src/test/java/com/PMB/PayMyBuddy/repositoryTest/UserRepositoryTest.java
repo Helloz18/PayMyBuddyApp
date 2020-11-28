@@ -30,14 +30,14 @@ public class UserRepositoryTest {
     @BeforeEach
     public void setUp(){
 
-    	userTest = new User("email", "password","firstname", "lastname",null,0, "ROLE_USER",true, null, null, null, null, null);
+    	userTest = new User("email", "password","firstname", "lastname",null,0, "ROLE_USER",true, null, null, null, 
+    			null, null);
     	entityManager.persist(userTest);
     	entityManager.flush();
     }
     
     @Test
-    public void testFindByEmail() {
-    	 
+    public void testFindByEmail() {  	 
     	//Given --> setUp()
     	//When
         User userFound = userRepository.findByEmail(userTest.getEmail());

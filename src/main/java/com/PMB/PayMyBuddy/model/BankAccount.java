@@ -15,52 +15,52 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class BankAccount {
 
 	@Id
-	@Column(name ="bank_account_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bank_account_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private long id;
 	private String bankName;
 	private String accountNumber;
-	
+
 	@JsonIgnore
 	@OneToOne(mappedBy = "bankAccount")
 	private User user;
-	
-	//boolean to simulate the response from the bank
+
+	// boolean to simulate the response from the bank
 	// --> if the user has money on his bank account or not
 	private boolean responseFromBankApi;
-	
-	
+
 	public BankAccount() {
 	}
-	
+
 	public BankAccount(String bankName, String accountNumber) {
 		this.bankName = bankName;
 		this.accountNumber = accountNumber;
 	}
 
-
-
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getBankName() {
 		return bankName;
 	}
+
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
+
 	public String getAccountNumber() {
 		return accountNumber;
 	}
+
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -83,6 +83,4 @@ public class BankAccount {
 		this.user = user;
 	}
 
-
-	
 }
