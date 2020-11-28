@@ -66,17 +66,17 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void getUsersShouldReturnOk() throws Exception {
+	public void getUsers_ShouldReturnOk() throws Exception {
 		mockMvc.perform(get("/admin/all")).andExpect(status().isOk());
 	}
 
 	@Test
-	public void getUserShouldReturnOk() throws Exception {
+	public void getUser_ShouldReturnOk() throws Exception {
 		mockMvc.perform(get("/user/")).andExpect(status().isOk());
 	}
 
 	@Test
-	public void getUserMoneyTransfersShouldReturnOk() throws Exception {
+	public void getUserMoneyTransfers_ShouldReturnOk() throws Exception {
 		// GIVEN, WHEN
 		User user = new User("test@test.com", "123", "test", "test", null, 0, "ROLE_USER", true, null, null, null, null,
 				null);

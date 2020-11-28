@@ -38,7 +38,7 @@ class TypeOfTransferServiceTest {
 
 
 	@Test
-	void whenGetByNameIsCalledThenTypeOfTransferIsReturned() {
+	void when_getByNameIsCalled_thenTypeOfTransferIsReturned() {
 		//GIVEN
 		int id = 3;
 		//WHEN
@@ -48,7 +48,7 @@ class TypeOfTransferServiceTest {
 	}
 	
 	@Test
-	void whenAmountIsTransferedThenPercentIsRemoved() {
+	void when_amountIsTransfered_thenPercentIsCollected() {
 		//GIVEN
 		int id = typeRepository.getOne(3).getId();
 		Double amount = 100.0;
@@ -60,7 +60,7 @@ class TypeOfTransferServiceTest {
 	}
 
 	@Test
-	void whenPercentIsNullThenNoMoneyIsRemoved() {
+	void when_percentIsNull_thenNoMoneyIsRemoved() {
 		//GIVEN
 		TypeOfTransfer type = typeRepository.getOne(3);
 		type.setPercentToCollect(0.00);
@@ -72,7 +72,7 @@ class TypeOfTransferServiceTest {
 	}
 	
 	@Test
-	void whenPercentNotNullThenMoneyIsCollected() {
+	void when_percentNotNull_thenMoneyIsCollected() {
 		//GIVEN
 		int id = typeRepository.getOne(3).getId();
 		Double amount = 100.0;
@@ -83,7 +83,7 @@ class TypeOfTransferServiceTest {
 	}
 	
 	@Test
-	void whenPercentIsNullThenNoMoneyIsCollected() {
+	void when_percentIsNull_thenNoMoneyIsCollected() {
 		//GIVEN
 		TypeOfTransfer type = typeRepository.getOne(3);
 		type.setPercentToCollect(0.00);

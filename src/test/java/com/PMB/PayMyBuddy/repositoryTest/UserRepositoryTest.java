@@ -37,7 +37,7 @@ public class UserRepositoryTest {
     }
     
     @Test
-    public void testFindByEmail() {  	 
+    public void test_Find_By_Email() {  	 
     	//Given --> setUp()
     	//When
         User userFound = userRepository.findByEmail(userTest.getEmail());
@@ -46,7 +46,7 @@ public class UserRepositoryTest {
     }
   
     @Test
-    public void testFindAll() {
+    public void test_Find_All() {
     	//Given --> setUp()
     	//When
     	List<User> users = userRepository.findAll();
