@@ -38,7 +38,7 @@ This project use Hibernate so the BDD can be created on the launch of the applic
 * set PMB as owner
 * save
 * right-clic on database paymybuddy and go to sql editor
-* paste content of the paymybudy.sql file present in the resources folder
+* paste content of the paymybudy.sql file and data.sql file present in the resources folder
 * execute
 
 Now the database is set and the table "type_of_transfer" contains data.

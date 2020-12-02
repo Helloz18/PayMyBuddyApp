@@ -16,15 +16,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
-import com.PMB.PayMyBuddy.Service.BankAccountService;
-import com.PMB.PayMyBuddy.Service.MoneyTransferService;
-import com.PMB.PayMyBuddy.Service.TypeOfTransferService;
-import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.MoneyTransfer;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
 import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.MoneyTransferRepository;
+import com.PMB.PayMyBuddy.service.BankAccountService;
+import com.PMB.PayMyBuddy.service.MoneyTransferService;
+import com.PMB.PayMyBuddy.service.TypeOfTransferService;
+import com.PMB.PayMyBuddy.service.UserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)

@@ -20,13 +20,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
-import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.model.Address;
 import com.PMB.PayMyBuddy.model.PhoneNumber;
 import com.PMB.PayMyBuddy.model.User;
 import com.PMB.PayMyBuddy.repository.AddressRepository;
 import com.PMB.PayMyBuddy.repository.PhoneNumberRepository;
 import com.PMB.PayMyBuddy.repository.UserRepository;
+import com.PMB.PayMyBuddy.service.UserService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)

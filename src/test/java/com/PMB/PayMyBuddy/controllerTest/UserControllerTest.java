@@ -24,9 +24,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.PMB.PayMyBuddy.Service.BankAccountService;
-import com.PMB.PayMyBuddy.Service.MoneyTransferService;
-import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.controller.UserController;
 import com.PMB.PayMyBuddy.model.Address;
 import com.PMB.PayMyBuddy.model.BankAccount;
@@ -34,6 +31,9 @@ import com.PMB.PayMyBuddy.model.MoneyTransfer;
 import com.PMB.PayMyBuddy.model.PhoneNumber;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
 import com.PMB.PayMyBuddy.model.User;
+import com.PMB.PayMyBuddy.service.BankAccountService;
+import com.PMB.PayMyBuddy.service.MoneyTransferService;
+import com.PMB.PayMyBuddy.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.hamcrest.CoreMatchers.is;

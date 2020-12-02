@@ -12,9 +12,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.PMB.PayMyBuddy.PayMyBuddyApplication;
-import com.PMB.PayMyBuddy.Service.TypeOfTransferService;
 import com.PMB.PayMyBuddy.model.TypeOfTransfer;
 import com.PMB.PayMyBuddy.repository.TypeOfTransferRepository;
+import com.PMB.PayMyBuddy.service.TypeOfTransferService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PayMyBuddyApplication.class)

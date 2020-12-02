@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.PMB.PayMyBuddy.Service.BankAccountService;
-import com.PMB.PayMyBuddy.Service.MoneyTransferService;
-import com.PMB.PayMyBuddy.Service.UserService;
 import com.PMB.PayMyBuddy.model.Address;
 import com.PMB.PayMyBuddy.model.BankAccount;
 import com.PMB.PayMyBuddy.model.MoneyTransfer;
 import com.PMB.PayMyBuddy.model.PhoneNumber;
 import com.PMB.PayMyBuddy.model.User;
+import com.PMB.PayMyBuddy.service.BankAccountService;
+import com.PMB.PayMyBuddy.service.MoneyTransferService;
+import com.PMB.PayMyBuddy.service.UserService;
 
 @RestController
 public class UserController {

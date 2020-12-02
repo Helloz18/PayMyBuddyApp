@@ -173,8 +173,3 @@ CREATE TABLE paymybuddy.phone_number (
 	CONSTRAINT phone_number_pkey PRIMARY KEY (phone_number_id),
 	CONSTRAINT fkb609grkur7fch5if2c0nrcujh FOREIGN KEY (user_id) REFERENCES paymybuddy."user"(user_id)
 );
-
--- insert of values for type_of_transfer
-INSERT INTO paymybuddy.type_of_transfer values(1,'transfer money to friend', 0.5);
-INSERT INTO paymybuddy.type_of_transfer values(2,'transfer money to bank', 0);
-INSERT INTO paymybuddy.type_of_transfer values(3,'transfer money from bank', 0);

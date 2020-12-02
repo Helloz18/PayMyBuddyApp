@@ -1,4 +1,4 @@
-package com.PMB.PayMyBuddy.Service;
+package com.PMB.PayMyBuddy.service;
 
 
 import java.util.ArrayList;
