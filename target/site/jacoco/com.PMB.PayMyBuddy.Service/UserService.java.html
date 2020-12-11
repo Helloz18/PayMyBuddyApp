@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PayMyBuddy</a> &gt; <a href="index.source.html" class="el_package">com.PMB.PayMyBuddy.Service</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.PMB.PayMyBuddy.Service;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.PMB.PayMyBuddy.exception.UserNotFoundException;
+import com.PMB.PayMyBuddy.model.Address;
+import com.PMB.PayMyBuddy.model.PhoneNumber;
+import com.PMB.PayMyBuddy.model.User;
+import com.PMB.PayMyBuddy.repository.AddressRepository;
+import com.PMB.PayMyBuddy.repository.PhoneNumberRepository;
+import com.PMB.PayMyBuddy.repository.UserRepository;
+
+@Service
+@Transactional
+<span class="fc" id="L26">public class UserService {</span>
+	
+<span class="fc" id="L28">	final Logger LOGGER = LoggerFactory.getLogger(UserService.class);		</span>
+		
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private AddressRepository addressRepo;
+	
+	@Autowired
+	private PhoneNumberRepository phoneRepo;
+	
+
+	public User get(Long id) {
+<span class="fc" id="L41">		return userRepo.getOne(id);</span>
+	}
+	
+	public User save(User user) {
+		try {
+<span class="nc" id="L46">			userRepo.save(user);</span>
+<span class="nc" id="L47">		}catch(Exception e) {</span>
+<span class="nc" id="L48">			LOGGER.error(&quot;Le user avec l'email : &quot;+user.getEmail()+&quot; existe déjà.&quot;);</span>
+<span class="nc" id="L49">			e.printStackTrace();		</span>
+<span class="nc" id="L50">		}</span>
+<span class="nc" id="L51">		return user;</span>
+	}
+	
+	public void deactivate(User user) {
+<span class="fc" id="L55">		user.setEnabled(false);</span>
+<span class="fc" id="L56">	}</span>
+	
+	public User getUserByEmail(String email) {
+<span class="fc" id="L59">		return userRepo.findByEmail(email);</span>
+	}
+
+	public List&lt;User&gt; findAll() {
+<span class="fc" id="L63">		return userRepo.findAll();</span>
+	}
+	
+	/**
+	 * This method allows to a user to add a moneyFriend by his email.
+	 * If the friend is already in the user moneyFriend, then nothing is added.
+	 * The moneyFriend have to be registered and enabled.
+	 * @param user
+	 * @param moneyFriendEmail
+	 */
+	public void addMoneyFriend(User user, String moneyFriendEmail) {		
+<span class="fc" id="L74">		User moneyFriend = userRepo.findByEmail(moneyFriendEmail);</span>
+		try {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">			if(moneyFriend != null</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">					&amp;&amp; moneyFriend.isEnabled()) {</span>
+<span class="fc" id="L78">				List&lt;User&gt; list = user.getMoneyFriends();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">				if(list == null) {</span>
+<span class="fc" id="L80">					list = new ArrayList&lt;&gt;();</span>
+				}
+<span class="fc bfc" id="L82" title="All 2 branches covered.">				if(list.contains(moneyFriend)) {</span>
+<span class="fc" id="L83">					LOGGER.error(&quot;user &quot;+moneyFriendEmail+&quot; is already a money friend.&quot;);</span>
+				}else {
+<span class="fc" id="L85">				list.add(moneyFriend);</span>
+<span class="fc" id="L86">				user.setMoneyFriends(list);}</span>
+<span class="fc" id="L87">			}else {</span>
+<span class="fc" id="L88">				LOGGER.error(&quot;no user exists or is enabled with email=&quot;+moneyFriendEmail+&quot;.&quot;);</span>
+<span class="fc" id="L89">				throw new UserNotFoundException(&quot;wrong email.&quot;);</span>
+			}
+<span class="fc" id="L91">		}catch (UserNotFoundException e) {</span>
+<span class="fc" id="L92">			e.printStackTrace();			</span>
+<span class="fc" id="L93">		}				</span>
+<span class="fc" id="L94">	}</span>
+	
+	/**
+	 * This method remove a moneyFriend from the friends of a user.
+	 * The moneyFriend have to be in the user moneyFriends.
+	 * @param user
+	 * @param moneyFriendEmail
+	 */
+	public void deleteMoneyFriend(User user, String moneyFriendEmail) {
+<span class="fc" id="L103">		User moneyFriend = userRepo.findByEmail(moneyFriendEmail);		</span>
+		try {
+<span class="fc bfc" id="L105" title="All 2 branches covered.">			if(moneyFriend != null</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">					&amp;&amp; moneyFriend.isEnabled()) {</span>
+<span class="fc" id="L107">				List&lt;User&gt; list = user.getMoneyFriends();</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">				if(list.contains(moneyFriend)) {</span>
+<span class="fc" id="L109">					list.remove(moneyFriend);</span>
+<span class="fc" id="L110">					user.setMoneyFriends(list);</span>
+				}else {
+<span class="fc" id="L112">					LOGGER.error(&quot;no user exists in the user friends list or is enabled with email=&quot;+moneyFriendEmail+&quot;.&quot;);</span>
+<span class="fc" id="L113">					throw new UserNotFoundException(&quot;user is not in the friends list.&quot;);</span>
+				}
+<span class="fc" id="L115">			}else {</span>
+<span class="fc" id="L116">				LOGGER.error(&quot;no user exists or is enabled with email=&quot;+moneyFriendEmail+&quot;.&quot;);</span>
+<span class="fc" id="L117">				throw new UserNotFoundException(&quot;wrong email.&quot;);</span>
+			
+			}
+<span class="fc" id="L120">		}catch (UserNotFoundException e) {</span>
+<span class="fc" id="L121">			e.printStackTrace();			</span>
+<span class="fc" id="L122">		}</span>
+		
+<span class="fc" id="L124">	}</span>
+	
+	public void addAddress(User user, Address address) {
+<span class="fc" id="L127">		address.setUser(user);</span>
+<span class="fc" id="L128">		List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">		if(addresses == null) {</span>
+<span class="fc" id="L130">			addresses = new ArrayList&lt;&gt;();</span>
+		}
+<span class="fc" id="L132">		addresses.add(address);</span>
+<span class="fc" id="L133">		user.setAddresses(addresses);</span>
+<span class="fc" id="L134">		addressRepo.save(address);		</span>
+<span class="fc" id="L135">	}</span>
+	
+	public void addPhoneNumber(User user, PhoneNumber phone) {
+<span class="fc" id="L138">		phone.setUser(user);</span>
+<span class="fc" id="L139">		List&lt;PhoneNumber&gt; phoneNumbers = user.getPhoneNumbers();</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">		if(phoneNumbers == null) {</span>
+<span class="fc" id="L141">			phoneNumbers = new ArrayList&lt;&gt;();</span>
+		}
+<span class="fc" id="L143">		phoneNumbers.add(phone);</span>
+<span class="fc" id="L144">		user.setPhoneNumbers(phoneNumbers);</span>
+<span class="fc" id="L145">		phoneRepo.save(phone);</span>
+<span class="fc" id="L146">	}</span>
+	
+	public void changeAddress(User user, long address_id, Address changedAddress) {
+<span class="fc" id="L149">		List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">		for(int i=0; i&lt;addresses.size(); i++) {</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">			if(addresses.get(i).getId() == address_id) {</span>
+<span class="fc" id="L152">				Address addressToChange = addressRepo.getOne(address_id);</span>
+<span class="fc" id="L153">				addressToChange.setNumber(changedAddress.getNumber());</span>
+<span class="fc" id="L154">				addressToChange.setStreet(changedAddress.getStreet());</span>
+<span class="fc" id="L155">				addressToChange.setZip(changedAddress.getZip());</span>
+<span class="fc" id="L156">				addressToChange.setCity(changedAddress.getCity());</span>
+<span class="fc" id="L157">				addressRepo.save(addressToChange);</span>
+			}
+		}	
+<span class="fc" id="L160">	}</span>
+	
+	public void changePhoneNumber(User user, long phone_id, PhoneNumber changedPhoneNumber) {
+<span class="fc" id="L163">		List&lt;PhoneNumber&gt; phonenumbers = user.getPhoneNumbers();</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">		for(int i=0; i&lt;phonenumbers.size(); i++) {</span>
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">			if(phonenumbers.get(i).getId() == phone_id) {</span>
+<span class="fc" id="L166">				PhoneNumber phoneToChange = phoneRepo.getOne(phone_id);</span>
+<span class="fc" id="L167">				phoneToChange.setNumber(changedPhoneNumber.getNumber());</span>
+<span class="fc" id="L168">				phoneToChange.setName(changedPhoneNumber.getName());</span>
+<span class="fc" id="L169">				phoneRepo.save(phoneToChange);</span>
+			}
+		}	
+<span class="fc" id="L172">	}</span>
+	
+	public void deleteAddress(User user, long address_id) {
+<span class="fc" id="L175">		List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">		for(int i=0; i&lt;addresses.size(); i++) {</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">			if(addresses.get(i).getId() == address_id) {</span>
+<span class="fc" id="L178">				Address addressToDelete = addressRepo.getOne(address_id);</span>
+<span class="fc" id="L179">				addresses.remove(addresses.get(i));</span>
+<span class="fc" id="L180">				addressRepo.delete(addressToDelete);</span>
+			}
+		}
+<span class="fc" id="L183">	}</span>
+	
+	public void deletePhoneNumber(User user, long phone_id) {
+<span class="fc" id="L186">		List&lt;PhoneNumber&gt; phonenumbers = user.getPhoneNumbers();</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">		for(int i=0; i&lt;phonenumbers.size(); i++) {</span>
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">			if(phonenumbers.get(i).getId() == phone_id) {</span>
+<span class="fc" id="L189">				PhoneNumber phoneToDelete = phoneRepo.getOne(phone_id);</span>
+<span class="fc" id="L190">				phonenumbers.remove(phonenumbers.get(i));</span>
+<span class="fc" id="L191">				phoneRepo.delete(phoneToDelete);</span>
+			}
+		}
+<span class="fc" id="L194">	}</span>
+	
+	/**
+	 * This method is used to check which user is connected. 
+	 * It's a security method.
+	 * @return
+	 */
+	public User getConnectedUser() {
+<span class="nc" id="L202">		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();</span>
+<span class="nc" id="L203">		UserDetails userDetails = (UserDetails) authentication.getPrincipal();</span>
+<span class="nc" id="L204">		return this.getUserByEmail(userDetails.getUsername());	</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

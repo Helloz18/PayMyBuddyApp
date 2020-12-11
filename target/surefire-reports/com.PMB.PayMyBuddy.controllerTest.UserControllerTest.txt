@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.PMB.PayMyBuddy.controllerTest.UserControllerTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.798 s - in com.PMB.PayMyBuddy.controllerTest.UserControllerTest

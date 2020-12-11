@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoneyTransfer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PayMyBuddy</a> &gt; <a href="index.source.html" class="el_package">com.PMB.PayMyBuddy.model</a> &gt; <span class="el_source">MoneyTransfer.java</span></div><h1>MoneyTransfer.java</h1><pre class="source lang-java linenums">package com.PMB.PayMyBuddy.model;
+
+import java.time.OffsetDateTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = &quot;money_transfer&quot;)
+public class MoneyTransfer {
+
+	@Id
+	@Column(name = &quot;money_transfer_id&quot;)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
+	private long id;
+
+	private double amount;
+	private String description;
+	private OffsetDateTime date;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = &quot;type_of_transfer_id&quot;, nullable = false)
+	@JsonIgnore
+	private TypeOfTransfer typeOfTransfer;
+
+	@ManyToOne
+	@JoinColumn(name = &quot;money_sender_id&quot;, nullable = false)
+	@JsonIgnoreProperties({ &quot;id&quot;, &quot;password&quot;, &quot;appAccount&quot;, &quot;moneyFriends&quot;, &quot;role&quot;, &quot;enabled&quot;, &quot;addresses&quot;,
+			&quot;phoneNumbers&quot;, &quot;bankAccount&quot;, &quot;moneyTransfers&quot;, &quot;birthdate&quot; })
+	private User moneySender;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = &quot;money_friend_id&quot;)
+	@JsonIgnoreProperties({ &quot;id&quot;, &quot;password&quot;, &quot;appAccount&quot;, &quot;moneyFriends&quot;, &quot;role&quot;, &quot;enabled&quot;, &quot;addresses&quot;,
+			&quot;phoneNumbers&quot;, &quot;bankAccount&quot;, &quot;moneyTransfers&quot;, &quot;birthdate&quot; })
+	private User moneyFriend;
+
+<span class="fc" id="L49">	public MoneyTransfer() {</span>
+<span class="fc" id="L50">	}</span>
+
+	public MoneyTransfer(double amount, String description, OffsetDateTime date, TypeOfTransfer typeOfTransfer,
+<span class="fc" id="L53">			User moneySender, User moneyFriend) {</span>
+<span class="fc" id="L54">		this.amount = amount;</span>
+<span class="fc" id="L55">		this.description = description;</span>
+<span class="fc" id="L56">		this.date = date;</span>
+<span class="fc" id="L57">		this.typeOfTransfer = typeOfTransfer;</span>
+<span class="fc" id="L58">		this.moneySender = moneySender;</span>
+<span class="fc" id="L59">		this.moneyFriend = moneyFriend;</span>
+<span class="fc" id="L60">	}</span>
+
+	public long getId() {
+<span class="nc" id="L63">		return id;</span>
+	}
+
+	public void setId(long id) {
+<span class="nc" id="L67">		this.id = id;</span>
+<span class="nc" id="L68">	}</span>
+
+	public double getAmount() {
+<span class="fc" id="L71">		return amount;</span>
+	}
+
+	public void setAmount(double amount) {
+<span class="fc" id="L75">		this.amount = amount;</span>
+<span class="fc" id="L76">	}</span>
+
+	public String getDescription() {
+<span class="fc" id="L79">		return description;</span>
+	}
+
+	public void setDescription(String description) {
+<span class="fc" id="L83">		this.description = description;</span>
+<span class="fc" id="L84">	}</span>
+
+	public OffsetDateTime getDate() {
+<span class="fc" id="L87">		return date;</span>
+	}
+
+	public void setDate(OffsetDateTime date) {
+<span class="fc" id="L91">		this.date = date;</span>
+<span class="fc" id="L92">	}</span>
+
+	public TypeOfTransfer getTypeOfTransfer() {
+<span class="nc" id="L95">		return typeOfTransfer;</span>
+	}
+
+	public void setTypeOfTransfer(TypeOfTransfer typeOfTransfer) {
+<span class="fc" id="L99">		this.typeOfTransfer = typeOfTransfer;</span>
+<span class="fc" id="L100">	}</span>
+
+	public User getMoneySender() {
+<span class="fc" id="L103">		return moneySender;</span>
+	}
+
+	public void setMoneySender(User moneySender) {
+<span class="fc" id="L107">		this.moneySender = moneySender;</span>
+<span class="fc" id="L108">	}</span>
+
+	public User getMoneyFriend() {
+<span class="fc" id="L111">		return moneyFriend;</span>
+	}
+
+	public void setMoneyFriend(User moneyFriend) {
+<span class="fc" id="L115">		this.moneyFriend = moneyFriend;</span>
+<span class="fc" id="L116">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L120">		return &quot;MoneyTransfer [id=&quot; + id + &quot;, amount=&quot; + amount + &quot;, description=&quot; + description + &quot;, date=&quot; + date</span>
+<span class="fc" id="L121">				+ &quot;, typeOfTransfer=&quot; + typeOfTransfer.getId() + &quot;, moneySender=&quot; + moneySender.getEmail()</span>
+<span class="fc" id="L122">				+ &quot;, moneyFriend=&quot; + moneyFriend.getEmail() + &quot;]&quot;;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

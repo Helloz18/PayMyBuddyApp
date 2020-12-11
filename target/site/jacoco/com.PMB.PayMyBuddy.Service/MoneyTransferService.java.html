@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoneyTransferService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PayMyBuddy</a> &gt; <a href="index.source.html" class="el_package">com.PMB.PayMyBuddy.Service</a> &gt; <span class="el_source">MoneyTransferService.java</span></div><h1>MoneyTransferService.java</h1><pre class="source lang-java linenums">package com.PMB.PayMyBuddy.Service;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.PMB.PayMyBuddy.exception.NotEnoughMoneyException;
+import com.PMB.PayMyBuddy.exception.QuotaReachedException;
+import com.PMB.PayMyBuddy.model.MoneyTransfer;
+import com.PMB.PayMyBuddy.model.TypeOfTransfer;
+import com.PMB.PayMyBuddy.model.User;
+import com.PMB.PayMyBuddy.repository.MoneyTransferRepository;
+
+@Service
+@Transactional
+<span class="fc" id="L25">public class MoneyTransferService {</span>
+
+<span class="fc" id="L27">	final Logger LOGGER = LoggerFactory.getLogger(MoneyTransferService.class);</span>
+
+	/**
+	 * To choose the value of the amount max of a user can have on his appAccount go
+	 * to properties file.
+	 */
+	@Value(&quot;${amountMax}&quot;)
+	private Double amountMax;
+
+	@Autowired
+	MoneyTransferRepository moneyTransferRepository;
+
+	@Autowired
+	TypeOfTransferService typeService;
+
+	@Autowired
+	BankAccountService bankService;
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	TypeOfTransferService typeOfTransferService;
+
+	/**
+	 * This method will get money from bank, then set info for the transfer, then
+	 * save the transfer in DB (the user is not saved, the call of this method
+	 * should be in userService)
+	 * 
+	 * @param user
+	 * @param amountAsked
+	 * @param description
+	 * @return a Map which contain the MoneyTransfer and the amount taken from the
+	 *         app depending on the type of transfer (it could be 0)
+	 */
+	public Map&lt;MoneyTransfer, Double&gt; processTransferFromBank(User user, Double amountAsked, String description) {
+
+<span class="fc" id="L64">		Map&lt;MoneyTransfer, Double&gt; map = new HashMap&lt;MoneyTransfer, Double&gt;();</span>
+<span class="fc" id="L65">		MoneyTransfer fromBankToUser = new MoneyTransfer();</span>
+<span class="fc" id="L66">		Double moneyCollected = 0.00;</span>
+
+		try {
+<span class="fc" id="L69">			fromBankToUser.setMoneySender(user);</span>
+<span class="fc" id="L70">			fromBankToUser.setMoneyFriend(user);</span>
+<span class="fc" id="L71">			fromBankToUser.setDescription(description);</span>
+<span class="fc" id="L72">			fromBankToUser.setDate(OffsetDateTime.now());</span>
+<span class="fc" id="L73">			TypeOfTransfer type = typeService.getById(3);</span>
+<span class="fc" id="L74">			fromBankToUser.setTypeOfTransfer(type);</span>
+
+<span class="fc" id="L76">			Double amountResult = bankService.fundAppAccount(user, amountAsked);</span>
+			try {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">				if (amountResult &lt;= 0.00) {</span>
+<span class="fc" id="L79">					LOGGER.info(&quot;no money will be added on appAccount&quot;);</span>
+
+				} else {
+<span class="fc" id="L82">					Double amount = typeService.amountFromTypeOfTransfer(amountResult, type.getId());</span>
+<span class="fc" id="L83">					moneyCollected = typeService.moneyCollected(amountResult, type.getId());</span>
+<span class="fc" id="L84">					Double amountTotal = user.getAppAccount() + amount;</span>
+
+					try {
+<span class="fc bfc" id="L87" title="All 2 branches covered.">						if (amountTotal &lt;= amountMax) {</span>
+<span class="fc" id="L88">							fromBankToUser.setAmount(amountAsked);</span>
+<span class="fc" id="L89">							user.setAppAccount(amountTotal);</span>
+<span class="fc" id="L90">							List&lt;MoneyTransfer&gt; list = user.getMoneyTransfers();</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">							if (list == null) {</span>
+<span class="fc" id="L92">								list = new ArrayList&lt;&gt;();</span>
+							}
+<span class="fc" id="L94">							list.add(fromBankToUser);</span>
+<span class="fc" id="L95">							user.setMoneyTransfers(list);</span>
+<span class="fc" id="L96">						} else {</span>
+<span class="fc" id="L97">							LOGGER.error(&quot;quota reached, the amountMax=&quot; + amountMax + &quot; will be reached.&quot;);</span>
+<span class="fc" id="L98">							throw new QuotaReachedException(&quot;quota reached exception.&quot;);</span>
+						}
+<span class="fc" id="L100">					} catch (QuotaReachedException e) {</span>
+<span class="fc" id="L101">						e.printStackTrace();</span>
+<span class="fc" id="L102">					}</span>
+
+					try {
+<span class="fc" id="L105">						moneyTransferRepository.save(fromBankToUser);</span>
+<span class="nc" id="L106">					} catch (Exception ex) {</span>
+<span class="nc" id="L107">						ex.printStackTrace();</span>
+<span class="fc" id="L108">					}</span>
+				}
+<span class="nc" id="L110">			} catch (Exception e) {</span>
+<span class="nc" id="L111">				e.printStackTrace();</span>
+<span class="fc" id="L112">			}</span>
+<span class="nc" id="L113">		} catch (Exception e) {</span>
+<span class="nc" id="L114">			e.printStackTrace();</span>
+<span class="fc" id="L115">		}</span>
+<span class="fc" id="L116">		map.put(fromBankToUser, moneyCollected);</span>
+<span class="fc" id="L117">		return map;</span>
+	}
+
+	/**
+	 * This method will transfer money from the app account to the bank account of
+	 * the user
+	 * 
+	 * @param user
+	 * @param amountTransfered
+	 * @param description
+	 * @return a Map which contain the MoneyTransfer and the amount taken from the
+	 *         app depending on the type of transfer (it could be 0)
+	 */
+	public Map&lt;MoneyTransfer, Double&gt; processTransferToBank(User user, Double amountTransfered, String description) {
+
+<span class="fc" id="L132">		Map&lt;MoneyTransfer, Double&gt; map = new HashMap&lt;MoneyTransfer, Double&gt;();</span>
+<span class="fc" id="L133">		MoneyTransfer fromUserToBank = new MoneyTransfer();</span>
+<span class="fc" id="L134">		Double moneyCollected = 0.00;</span>
+
+		try {
+<span class="fc" id="L137">			fromUserToBank.setMoneySender(user);</span>
+<span class="fc" id="L138">			fromUserToBank.setMoneyFriend(user);</span>
+<span class="fc" id="L139">			fromUserToBank.setDescription(description);</span>
+<span class="fc" id="L140">			fromUserToBank.setDate(OffsetDateTime.now());</span>
+<span class="fc" id="L141">			TypeOfTransfer type = typeService.getById(2);</span>
+<span class="fc" id="L142">			fromUserToBank.setTypeOfTransfer(type);</span>
+
+			try {
+<span class="fc" id="L145">				Double amountUserOnApp = user.getAppAccount();</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">				if (amountUserOnApp &gt;= amountTransfered) {</span>
+<span class="fc" id="L147">					Double amountToSend = typeService.amountFromTypeOfTransfer(amountTransfered, type.getId());</span>
+<span class="fc" id="L148">					moneyCollected = typeService.moneyCollected(amountTransfered, type.getId());</span>
+<span class="fc" id="L149">					bankService.fundBankAccount(user, amountToSend);</span>
+<span class="fc" id="L150">					Double amountResult = amountUserOnApp - amountTransfered;</span>
+<span class="fc" id="L151">					user.setAppAccount(amountResult);</span>
+<span class="fc" id="L152">					LOGGER.info(&quot;user appAccount is now = &quot; + amountResult + &quot;.&quot;);</span>
+<span class="fc" id="L153">					fromUserToBank.setAmount(amountTransfered);</span>
+<span class="fc" id="L154">				} else {</span>
+<span class="fc" id="L155">					LOGGER.error(&quot;Trying to transfer more money than is present on app account.&quot;);</span>
+<span class="fc" id="L156">					throw new NotEnoughMoneyException(&quot;not enough money on app account.&quot;);</span>
+				}
+
+				try {
+<span class="fc" id="L160">					moneyTransferRepository.save(fromUserToBank);</span>
+<span class="nc" id="L161">				} catch (Exception ex) {</span>
+<span class="nc" id="L162">					ex.printStackTrace();</span>
+<span class="fc" id="L163">				}</span>
+
+<span class="fc" id="L165">			} catch (NotEnoughMoneyException e) {</span>
+<span class="fc" id="L166">				e.printStackTrace();</span>
+<span class="fc" id="L167">			}</span>
+<span class="nc" id="L168">		} catch (Exception e) {</span>
+<span class="nc" id="L169">			e.printStackTrace();</span>
+<span class="fc" id="L170">		}</span>
+
+<span class="fc" id="L172">		map.put(fromUserToBank, moneyCollected);</span>
+<span class="fc" id="L173">		return map;</span>
+	}
+
+	/**
+	 * This method will transfer money from the app account of a user to another one
+	 * 
+	 * @param user
+	 * @param moneyFriendEmail
+	 * @param amountAsked
+	 * @param description
+	 * @return a Map which contain the MoneyTransfer and the amount taken from the
+	 *         app depending on the type of transfer (it could be 0)
+	 */
+	public Map&lt;MoneyTransfer, Double&gt; processTransferToFriend(User user, String moneyFriendEmail, Double amountAsked,
+			String description) {
+
+<span class="fc" id="L189">		Map&lt;MoneyTransfer, Double&gt; map = new HashMap&lt;MoneyTransfer, Double&gt;();</span>
+<span class="fc" id="L190">		MoneyTransfer fromUserToFriend = new MoneyTransfer();</span>
+<span class="fc" id="L191">		Double moneyCollected = 0.00;</span>
+
+		try {
+<span class="fc" id="L194">			User moneyFriend = userService.getUserByEmail(moneyFriendEmail);</span>
+<span class="fc" id="L195">			List&lt;User&gt; moneyFriends = user.getMoneyFriends();</span>
+<span class="pc bpc" id="L196" title="3 of 6 branches missed.">			if (moneyFriends.size() &gt; 0 &amp;&amp; moneyFriends.contains(moneyFriend) &amp;&amp; moneyFriend.isEnabled()) {</span>
+<span class="fc" id="L197">				fromUserToFriend.setMoneySender(user);</span>
+<span class="fc" id="L198">				fromUserToFriend.setMoneyFriend(moneyFriend);</span>
+<span class="fc" id="L199">				fromUserToFriend.setAmount(amountAsked);</span>
+<span class="fc" id="L200">				fromUserToFriend.setDate(OffsetDateTime.now());</span>
+<span class="fc" id="L201">				TypeOfTransfer type = typeService.getById(1);</span>
+<span class="fc" id="L202">				fromUserToFriend.setTypeOfTransfer(type);</span>
+<span class="fc" id="L203">				fromUserToFriend.setDescription(description);</span>
+				try {
+<span class="fc" id="L205">					Double userAccount = user.getAppAccount();</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">					if (userAccount &gt;= amountAsked) {</span>
+<span class="fc" id="L207">						userAccount = userAccount - amountAsked;</span>
+<span class="fc" id="L208">						user.setAppAccount(userAccount);</span>
+
+<span class="fc" id="L210">						Double friendAccount = moneyFriend.getAppAccount();</span>
+
+<span class="fc" id="L212">						Double amount = typeService.amountFromTypeOfTransfer(amountAsked, type.getId());</span>
+<span class="fc" id="L213">						moneyCollected = typeService.moneyCollected(amountAsked, type.getId());</span>
+<span class="fc" id="L214">						Double amountTotal = friendAccount + amount;</span>
+
+<span class="fc bfc" id="L216" title="All 2 branches covered.">						if (amountTotal &lt;= amountMax) {</span>
+<span class="fc" id="L217">							moneyFriend.setAppAccount(amountTotal);</span>
+						} else {
+<span class="fc" id="L219">							LOGGER.error(&quot;AmountMax on MoneyFriend &quot; + moneyFriendEmail + &quot; reached.&quot;);</span>
+						}
+
+<span class="fc" id="L222">						List&lt;MoneyTransfer&gt; list = user.getMoneyTransfers();</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">						if (list == null) {</span>
+<span class="fc" id="L224">							list = new ArrayList&lt;&gt;();</span>
+						}
+<span class="fc" id="L226">						list.add(fromUserToFriend);</span>
+<span class="fc" id="L227">						user.setMoneyTransfers(list);</span>
+
+<span class="fc" id="L229">					} else {</span>
+<span class="fc" id="L230">						LOGGER.error(&quot;not enough money on app account.&quot;);</span>
+<span class="fc" id="L231">						throw new NotEnoughMoneyException(&quot;not enough money on app account.&quot;);</span>
+					}
+
+					try {
+<span class="fc" id="L235">						moneyTransferRepository.save(fromUserToFriend);</span>
+<span class="nc" id="L236">					} catch (Exception e) {</span>
+<span class="nc" id="L237">						e.printStackTrace();</span>
+<span class="fc" id="L238">					}</span>
+
+<span class="fc" id="L240">				} catch (NotEnoughMoneyException e) {</span>
+<span class="fc" id="L241">					e.printStackTrace();</span>
+<span class="fc" id="L242">				}</span>
+<span class="fc" id="L243">			} else {</span>
+<span class="nc" id="L244">				LOGGER.error(&quot;the moneyFriend is not in the list, or is not enabled.&quot;);</span>
+			}
+
+<span class="fc" id="L247">		} catch (Exception e) {</span>
+<span class="fc" id="L248">			e.printStackTrace();</span>
+<span class="fc" id="L249">		}</span>
+
+<span class="fc" id="L251">		map.put(fromUserToFriend, moneyCollected);</span>
+<span class="fc" id="L252">		return map;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

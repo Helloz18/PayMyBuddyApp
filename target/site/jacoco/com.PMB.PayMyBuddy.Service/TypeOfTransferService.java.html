@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TypeOfTransferService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PayMyBuddy</a> &gt; <a href="index.source.html" class="el_package">com.PMB.PayMyBuddy.Service</a> &gt; <span class="el_source">TypeOfTransferService.java</span></div><h1>TypeOfTransferService.java</h1><pre class="source lang-java linenums">package com.PMB.PayMyBuddy.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.PMB.PayMyBuddy.model.TypeOfTransfer;
+import com.PMB.PayMyBuddy.repository.TypeOfTransferRepository;
+
+@Service
+@Transactional
+<span class="fc" id="L12">public class TypeOfTransferService {</span>
+
+	@Autowired
+	TypeOfTransferRepository typeRepository;
+	
+	/**
+	 * This method will get the amount received by a friend :
+	 * amount send by the user minus the amount collected to fund the application.
+	 * @param amount
+	 * @param id : the id of the type of transfer
+	 * @return
+	 */
+	public Double amountFromTypeOfTransfer(Double amount, int id) {
+<span class="fc" id="L25">		TypeOfTransfer type = typeRepository.getOne(id);</span>
+<span class="fc" id="L26">		Double amountProcessed = amount - (amount * type.getPercentToCollect()/100);</span>
+<span class="fc" id="L27">		return amountProcessed;		</span>
+	}
+	
+	/**
+	 * This method will return the amount collected to fund the application.
+	 * @param amount
+	 * @param id
+	 * @return
+	 */
+	public Double moneyCollected(Double amount, int id) {
+<span class="fc" id="L37">		TypeOfTransfer type = typeRepository.getOne(id);</span>
+<span class="fc" id="L38">		Double moneyCollected = amount * type.getPercentToCollect()/100;</span>
+<span class="fc" id="L39">		return moneyCollected;		</span>
+	}
+	
+	/**
+	 * This method will ask the data access layer to return the type of transfer by its Id.
+	 * @param id
+	 * @return
+	 */
+	public TypeOfTransfer getById(int id) {
+<span class="fc" id="L48">		return typeRepository.getOne(id);</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
