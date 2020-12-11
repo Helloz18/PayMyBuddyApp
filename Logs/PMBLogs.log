@@ -1,0 +1,126 @@
+2020-12-11 09:51:34.839  INFO 15828 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : Starting PayMyBuddyApplication on LAPTOP-O34I53V9 with PID 15828 (D:\DAJ - Projet 6\PayMyBuddyApp\target\classes started by hfx28 in D:\DAJ - Projet 6\PayMyBuddyApp)
+2020-12-11 09:51:34.858  INFO 15828 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : No active profile set, falling back to default profiles: default
+2020-12-11 09:51:36.209  INFO 15828 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-11 09:51:36.334  INFO 15828 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110ms. Found 6 JPA repository interfaces.
+2020-12-11 09:51:36.967  INFO 15828 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-11 09:51:36.977  INFO 15828 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-11 09:51:36.977  INFO 15828 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-11 09:51:37.056  INFO 15828 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-11 09:51:37.056  INFO 15828 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2130 ms
+2020-12-11 09:51:37.273  INFO 15828 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-11 09:51:37.361  INFO 15828 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-11 09:51:37.384  WARN 15828 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-11 09:51:37.471  INFO 15828 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-12-11 09:51:37.784  INFO 15828 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-11 09:51:37.960  INFO 15828 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@383864d5, org.springframework.security.web.context.SecurityContextPersistenceFilter@67d86804, org.springframework.security.web.header.HeaderWriterFilter@47447ccf, org.springframework.web.filter.CorsFilter@3dd818e8, org.springframework.security.web.authentication.logout.LogoutFilter@21c7208d, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@481e91b6, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@1460c81d, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4cb40e3b, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@772861aa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e84111a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b174a73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41b1f51e, org.springframework.security.web.session.SessionManagementFilter@263bbfeb, org.springframework.security.web.access.ExceptionTranslationFilter@6ec65b5e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@59d77850]
+2020-12-11 09:51:37.998  INFO 15828 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Starting...
+2020-12-11 09:51:38.136  INFO 15828 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-11 09:51:38.138  INFO 15828 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-11 09:51:38.199  INFO 15828 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Start completed.
+2020-12-11 09:51:38.217  INFO 15828 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-12-11 09:51:39.221  INFO 15828 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-11 09:51:39.238  INFO 15828 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-11 09:51:39.673  INFO 15828 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-11 09:51:39.680  INFO 15828 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : Started PayMyBuddyApplication in 5.353 seconds (JVM running for 6.502)
+2020-12-11 09:51:48.226  INFO 15828 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-11 09:51:48.226  INFO 15828 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-11 09:51:48.238  INFO 15828 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2020-12-11 10:11:20.188  INFO 15828 --- [http-nio-8080-exec-1] c.P.P.service.BankAccountService         : bank account saved for user nouveau@test.com
+2020-12-11 10:14:31.663  INFO 15828 --- [http-nio-8080-exec-9] c.P.P.service.BankAccountService         : user bank account is granted with amountGiven = 50.0.
+2020-12-11 10:14:31.664  INFO 15828 --- [http-nio-8080-exec-9] c.P.P.service.MoneyTransferService       : user appAccount is now = 0.0.
+2020-12-11 10:47:34.277  INFO 15828 --- [RMI TCP Connection(32)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-12-11 10:47:34.403  INFO 15828 --- [RMI TCP Connection(32)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-11 10:47:34.406  INFO 15828 --- [RMI TCP Connection(32)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-11 10:47:34.406  INFO 15828 --- [RMI TCP Connection(32)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown initiated...
+2020-12-11 10:47:34.413  INFO 15828 --- [RMI TCP Connection(32)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown completed.
+2020-12-11 10:53:27.466  INFO 11040 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : Starting PayMyBuddyApplication on LAPTOP-O34I53V9 with PID 11040 (D:\DAJ - Projet 6\PayMyBuddyApp\target\classes started by hfx28 in D:\DAJ - Projet 6\PayMyBuddyApp)
+2020-12-11 10:53:27.467  INFO 11040 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : No active profile set, falling back to default profiles: default
+2020-12-11 10:53:27.897  INFO 11040 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-11 10:53:27.952  INFO 11040 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49ms. Found 6 JPA repository interfaces.
+2020-12-11 10:53:28.270  INFO 11040 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-11 10:53:28.276  INFO 11040 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-11 10:53:28.277  INFO 11040 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-11 10:53:28.340  INFO 11040 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-11 10:53:28.340  INFO 11040 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 838 ms
+2020-12-11 10:53:28.451  INFO 11040 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-11 10:53:28.477  INFO 11040 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-11 10:53:28.494  WARN 11040 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-11 10:53:28.507  INFO 11040 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-12-11 10:53:28.605  INFO 11040 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-11 10:53:28.718  INFO 11040 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Starting...
+2020-12-11 10:53:28.795  INFO 11040 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Start completed.
+2020-12-11 10:53:28.807  INFO 11040 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-12-11 10:53:28.812  INFO 11040 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c6366cf, org.springframework.security.web.context.SecurityContextPersistenceFilter@4da9f723, org.springframework.security.web.header.HeaderWriterFilter@3d49fd31, org.springframework.web.filter.CorsFilter@55a88417, org.springframework.security.web.authentication.logout.LogoutFilter@b174a73, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@59d77850, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@31edeac, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@18acfe88, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3ee69ad8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@213bd3d5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7afb1741, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8a2a6a, org.springframework.security.web.session.SessionManagementFilter@46cb98a3, org.springframework.security.web.access.ExceptionTranslationFilter@2324bfe7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@10f19647]
+2020-12-11 10:53:28.950  INFO 11040 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-11 10:53:28.952  INFO 11040 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-11 10:53:29.012  WARN 11040 --- [task-1] o.h.b.i.SessionFactoryOptionsBuilder     : Unrecognized hibernate.hbm2ddl.auto value: 'true'.  Supported values include 'create', 'create-drop', 'create-only', 'drop', 'update', 'none' and 'validate'.  Ignoring
+2020-12-11 10:53:29.407  WARN 11040 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'moneyTransferRepository' defined in com.PMB.PayMyBuddy.repository.MoneyTransferRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+2020-12-11 10:53:29.408  INFO 11040 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-11 10:53:29.408  WARN 11040 --- [main] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'entityManagerFactory': javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+2020-12-11 10:53:29.409  INFO 11040 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-11 10:53:29.409  INFO 11040 --- [main] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown initiated...
+2020-12-11 10:53:29.411  INFO 11040 --- [main] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown completed.
+2020-12-11 10:53:29.528  INFO 11040 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-12-11 10:53:29.538  INFO 11040 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-12-11 10:53:29.563 ERROR 11040 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'moneyTransferRepository' defined in com.PMB.PayMyBuddy.repository.MoneyTransferRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:342) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1697) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1442) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:624) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:612) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent(DeferredRepositoryInitializationListener.java:51) ~[spring-data-commons-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent(DeferredRepositoryInitializationListener.java:36) ~[spring-data-commons-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:404) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:361) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:898) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:554) ~[spring-context-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.3.RELEASE.jar:2.3.3.RELEASE]
+	at com.PMB.PayMyBuddy.PayMyBuddyApplication.main(PayMyBuddyApplication.java:10) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1794) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330) ~[spring-beans-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	... 28 common frames omitted
+Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:403) ~[spring-orm-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[na:1.8.0_251]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) ~[na:1.8.0_251]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) ~[na:1.8.0_251]
+	at java.lang.Thread.run(Thread.java:748) ~[na:1.8.0_251]
+Caused by: java.lang.IllegalArgumentException: Unrecognized legacy `hibernate.hbm2ddl.auto` value : `true`
+	at org.hibernate.tool.schema.Action.interpretHbm2ddlSetting(Action.java:181) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator$ActionGrouping.interpret(SchemaManagementToolCoordinator.java:490) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:53) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259) ~[hibernate-core-5.4.20.Final.jar:5.4.20.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58) ~[spring-orm-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365) ~[spring-orm-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391) ~[spring-orm-5.2.8.RELEASE.jar:5.2.8.RELEASE]
+	... 4 common frames omitted
+

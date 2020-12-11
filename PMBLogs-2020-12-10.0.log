@@ -1,0 +1,35 @@
+2020-12-10 20:27:02.148  INFO 11824 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : Starting PayMyBuddyApplication on LAPTOP-O34I53V9 with PID 11824 (D:\DAJ - Projet 6\PayMyBuddyApp\target\classes started by hfx28 in D:\DAJ - Projet 6\PayMyBuddyApp)
+2020-12-10 20:27:02.170  INFO 11824 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : No active profile set, falling back to default profiles: default
+2020-12-10 20:27:04.176  INFO 11824 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-12-10 20:27:04.372  INFO 11824 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 172ms. Found 6 JPA repository interfaces.
+2020-12-10 20:27:05.615  INFO 11824 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-12-10 20:27:05.689  INFO 11824 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-12-10 20:27:05.690  INFO 11824 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-12-10 20:27:06.026  INFO 11824 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-12-10 20:27:06.027  INFO 11824 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3768 ms
+2020-12-10 20:27:06.493  INFO 11824 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-12-10 20:27:06.654  INFO 11824 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-12-10 20:27:06.745  WARN 11824 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-12-10 20:27:06.836  INFO 11824 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.20.Final
+2020-12-10 20:27:07.564  INFO 11824 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-12-10 20:27:08.171  INFO 11824 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Starting...
+2020-12-10 20:27:08.368  INFO 11824 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@481e91b6, org.springframework.security.web.context.SecurityContextPersistenceFilter@6fca5907, org.springframework.security.web.header.HeaderWriterFilter@470a659f, org.springframework.web.filter.CorsFilter@7c8f9c2e, org.springframework.security.web.authentication.logout.LogoutFilter@2cc04358, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6c6366cf, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6d469831, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@140d1230, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7fd8c559, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7bebcd65, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6fa69af7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3cbf1ba4, org.springframework.security.web.session.SessionManagementFilter@4a23350, org.springframework.security.web.access.ExceptionTranslationFilter@3b2f4a93, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@42714a7]
+2020-12-10 20:27:08.611  INFO 11824 --- [task-1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Start completed.
+2020-12-10 20:27:08.676  INFO 11824 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2020-12-10 20:27:09.012  INFO 11824 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-12-10 20:27:09.016  INFO 11824 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-12-10 20:27:10.851  INFO 11824 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-12-10 20:27:10.878  INFO 11824 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-12-10 20:27:11.833  INFO 11824 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-12-10 20:27:11.846  INFO 11824 --- [main] c.PMB.PayMyBuddy.PayMyBuddyApplication   : Started PayMyBuddyApplication in 10.736 seconds (JVM running for 12.873)
+2020-12-10 20:27:31.292  INFO 11824 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-12-10 20:27:31.294  INFO 11824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-12-10 20:27:31.321  INFO 11824 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 27 ms
+2020-12-10 20:41:14.901  INFO 11824 --- [http-nio-8080-exec-1] c.P.P.service.BankAccountService         : bank account saved for user nouveau@test.com
+2020-12-10 20:44:30.124  INFO 11824 --- [http-nio-8080-exec-9] c.P.P.service.BankAccountService         : user bank account is granted with amountGiven = 50.0.
+2020-12-10 20:44:30.125  INFO 11824 --- [http-nio-8080-exec-9] c.P.P.service.MoneyTransferService       : user appAccount is now = 0.0.
+2020-12-10 20:51:20.295  INFO 11824 --- [RMI TCP Connection(28)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-12-10 20:51:20.535  INFO 11824 --- [RMI TCP Connection(28)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-12-10 20:51:20.538  INFO 11824 --- [RMI TCP Connection(28)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-12-10 20:51:20.539  INFO 11824 --- [RMI TCP Connection(28)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown initiated...
+2020-12-10 20:51:20.550  INFO 11824 --- [RMI TCP Connection(28)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : paymybuddy.sql - Shutdown completed.
