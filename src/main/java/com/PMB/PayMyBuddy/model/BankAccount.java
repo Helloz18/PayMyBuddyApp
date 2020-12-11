@@ -19,7 +19,9 @@ public class BankAccount {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
 	private long id;
+	@Column(length = 50)
 	private String bankName;
+	@Column(length = 30)
 	private String accountNumber;
 
 	@JsonIgnore

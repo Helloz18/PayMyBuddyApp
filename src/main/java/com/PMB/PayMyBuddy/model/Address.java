@@ -22,9 +22,11 @@ public class Address {
 	private long id;
 	@Column(length = 10)
 	private String number;
+	@Column(length = 50)
 	private String street;
 	@Column(length = 10)
 	private String zip;
+	@Column(length = 50)
 	private String city;
 
 	@ManyToOne

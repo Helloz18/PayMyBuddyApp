@@ -5,11 +5,11 @@ PayMyBuddyApp allows to anyone who is registered to this app to send money to fr
 
 Class Diagram
 -------------
-<img width="800px" src="./img/diagrammev6.png"/>
+<img width="800px" src="./img/diagramme.png"/>
 
 MPD
 -------------
-<img width="800px" src="./img/mpdvdef.png"/>
+<img width="800px" src="./img/mpd.png"/>
 
 Technologies used
 -----------------

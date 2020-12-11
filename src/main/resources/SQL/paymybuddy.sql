@@ -10,6 +10,7 @@ CREATE SEQUENCE paymybuddy.address_address_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+	
 -- DROP SEQUENCE paymybuddy.bank_account_bank_account_id_seq;
 
 CREATE SEQUENCE paymybuddy.bank_account_bank_account_id_seq
@@ -19,6 +20,7 @@ CREATE SEQUENCE paymybuddy.bank_account_bank_account_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+	
 -- DROP SEQUENCE paymybuddy.money_transfer_money_transfer_id_seq;
 
 CREATE SEQUENCE paymybuddy.money_transfer_money_transfer_id_seq
@@ -28,6 +30,7 @@ CREATE SEQUENCE paymybuddy.money_transfer_money_transfer_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+
 -- DROP SEQUENCE paymybuddy.phone_number_phone_number_id_seq;
 
 CREATE SEQUENCE paymybuddy.phone_number_phone_number_id_seq
@@ -37,6 +40,7 @@ CREATE SEQUENCE paymybuddy.phone_number_phone_number_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+
 -- DROP SEQUENCE paymybuddy.type_of_transfer_type_of_transfer_id_seq;
 
 CREATE SEQUENCE paymybuddy.type_of_transfer_type_of_transfer_id_seq
@@ -46,6 +50,7 @@ CREATE SEQUENCE paymybuddy.type_of_transfer_type_of_transfer_id_seq
 	START 1
 	CACHE 1
 	NO CYCLE;
+
 -- DROP SEQUENCE paymybuddy.user_user_id_seq;
 
 CREATE SEQUENCE paymybuddy.user_user_id_seq
@@ -62,8 +67,8 @@ CREATE SEQUENCE paymybuddy.user_user_id_seq
 
 CREATE TABLE paymybuddy.bank_account (
 	bank_account_id bigserial NOT NULL,
-	account_number varchar(255) NULL,
-	bank_name varchar(255) NULL,
+	account_number varchar(30) NULL,
+	bank_name varchar(50) NULL,
 	response_from_bank_api bool NOT NULL,
 	CONSTRAINT bank_account_pkey PRIMARY KEY (bank_account_id)
 );
@@ -93,10 +98,10 @@ CREATE TABLE paymybuddy."user" (
 	user_id bigserial NOT NULL,
 	app_account float8 NOT NULL,
 	birthdate timestamp NULL,
-	email varchar(255) NULL,
+	email varchar(100) NULL,
 	enabled bool NOT NULL,
-	firstname varchar(255) NULL,
-	lastname varchar(255) NULL,
+	firstname varchar(50) NULL,
+	lastname varchar(50) NULL,
 	"password" varchar(60) NULL,
 	"role" varchar(50) NULL,
 	bank_account_id int8 NULL,
@@ -128,9 +133,9 @@ CREATE TABLE paymybuddy.user_money_friends (
 
 CREATE TABLE paymybuddy.address (
 	address_id bigserial NOT NULL,
-	city varchar(255) NULL,
+	city varchar(50) NULL,
 	"number" varchar(10) NULL,
-	street varchar(255) NULL,
+	street varchar(50) NULL,
 	zip varchar(10) NULL,
 	user_id int8 NULL,
 	CONSTRAINT address_pkey PRIMARY KEY (address_id),
